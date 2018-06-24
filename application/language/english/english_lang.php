@@ -3661,3 +3661,60 @@ $lang['test_sms_message'] = 'Test Message';
 $lang['send_test_sms'] = 'Send Test SMS';
 $lang['gdpr_short'] = 'GDPR';
 $lang['allow_non_admin_staff_to_delete_ticket_attachments'] = 'Allow non-admin staff members to delete ticket attachments';
+// add
+$lang['property'] = 'Property';
+$lang['property_article_add_edit_name']   = 'Name';
+$lang['property_article_add_edit_category']     = 'Category';
+$lang['property_string']                     = 'Property';
+$lang['property_article']                    = 'Article';
+$lang['property_article_lowercase']          = 'article';
+$lang['property_article_new_article']        = 'New Article';
+$lang['property_article_disabled']           = 'Disabled';
+$lang['property_article_description']        = 'Article description';
+$lang['property_no_articles_found']          = 'No property articles found';
+$lang['property_dt_article_name']            = 'Article Name';
+$lang['property_dt_category_name']              = 'Category';
+$lang['new_category']                     = 'New category';
+$lang['property_category_add_edit_name']        = 'category Name';
+$lang['property_category_add_edit_description'] = 'Short description';
+$lang['property_category_add_edit_disabled']    = 'Disabled';
+$lang['property_category_add_edit_note']        = 'Note: All articles in this category will be hidden if disabled is checked';
+$lang['category_table_name_heading']      = 'Name';
+$lang['category_table_isactive_heading']  = 'Active';
+$lang['property_no_categories_found']            = 'No property category found';
+$lang['als_kb_categories']          = 'Categories';
+$lang['edit_property_category'] = 'Edit category';
+$lang['new_category'] = 'New category';
+$lang['name'] = 'Name';
+$lang['slug'] = 'Slug';
+$lang['description'] = 'Description';
+$lang['order'] = 'Order';
+$lang['disabled'] = 'Disabled';
+$lang['content'] = 'Content';
+$lang['active'] = 'Active';
+
+$lang['als_kb_types'] = 'Types';
+$lang['als_kb_locations'] = 'Locations';
+$lang['als_kb_characteristics'] = 'Characteristics';
+$lang['new_type'] = 'New Type';
+$lang['property_no_types_found'] = 'No types found';
+$lang['category'] = 'Category';
+
+
+$lang['als_kb_locations'] = 'Locations';
+$lang['new_location'] = 'New location';
+$lang['property_no_locations_found'] = 'No locations found';
+
+
+$lang['als_kb_characteristics'] = 'Characteristics';
+$lang['new_characteristic'] = 'New characteristic';
+$lang['property_no_characteristics_found'] = 'No characteristics found';
+
+$lang['property_article_add_edit_type']     = 'Type';
+$lang['property_article_add_edit_location']     = 'Location';
+$lang['property_article_add_edit_avatar']     = 'Avatar';
+$lang['property_image']     = 'Image gallery';
+$lang['property_article_add_edit_price']     = 'Price';
+$lang['property_article_add_edit_status']     = 'Status';
+$lang['property_article_add_edit_status_working']     = 'Working';
+$lang['property_article_add_edit_status_completed']     = 'Completed';

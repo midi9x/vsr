@@ -582,3 +582,33 @@ function format_external_form_custom_fields($custom_fields)
 
     return $cfields;
 }
+
+function render_status_option($option_value, $label, $tooltip = '', $replace_yes_text = '', $replace_no_text = '', $replace_1 = '', $replace_0 = '')
+{
+    ob_start(); ?>
+    <div class="form-group">
+        <label for="<?php echo $option_value; ?>" class="control-label clearfix">
+            <?php echo($tooltip != '' ? '<i class="fa fa-question-circle" data-toggle="tooltip" data-title="' . _l($tooltip, '', false) . '"></i> ': '') . _l($label, '', false); ?>
+        </label>
+        <div class="radio radio-primary radio-inline">
+            <input type="radio" id="y_opt_1_<?php echo $label; ?>" name="property_status" value="<?php echo $replace_1 == '' ? 1 : $replace_1; ?>" <?php if ($option_value == ($replace_1 == '' ? '1' : $replace_1)) {
+        echo 'checked';
+    } ?>>
+            <label for="y_opt_1_<?php echo $label; ?>">
+                <?php echo $replace_yes_text == '' ? _l('settings_yes') : $replace_yes_text; ?>
+            </label>
+        </div>
+        <div class="radio radio-primary radio-inline">
+                <input type="radio" id="y_opt_2_<?php echo $label; ?>" name="property_status" value="<?php echo $replace_0 == '' ? 0 : $replace_0; ?>" <?php if ($option_value == ($replace_0 == '' ? '0' : $replace_0)) {
+        echo 'checked';
+    } ?>>
+                <label for="y_opt_2_<?php echo $label; ?>">
+                    <?php echo $replace_no_text == '' ? _l('settings_no') : $replace_no_text; ?>
+                </label>
+        </div>
+    </div>
+    <?php
+    $settings = ob_get_contents();
+    ob_end_clean();
+    echo $settings;
+}

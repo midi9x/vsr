@@ -16,18 +16,20 @@ class Property_model extends CRM_Model
      */
     public function get($id = '', $slug = '')
     {
-        $this->db->select('slug,articleid, articlegroup, subject,tblknowledgebase.description,tblknowledgebase.active as active_article,tblknowledgebasegroups.active as active_group,name as group_name,staff_article');
-        $this->db->from('tblknowledgebase');
-        $this->db->join('tblknowledgebasegroups', 'tblknowledgebasegroups.groupid = tblknowledgebase.articlegroup', 'left');
-        $this->db->order_by('article_order', 'asc');
+        $this->db->select('property_id, property_name, property_avatar, property_content, property_category_id, property_type_id, property_location_id, property_status, property_price, property_slug, property_created_at, property_active, property_order, category_name, category_slug, category_description, category_active, category_order, location_name,location_description,location_slug,location_active,location_order, type_name,type_slug,type_description,type_active,type_order');
+        $this->db->from('property');
+        $this->db->join('property_categories', 'property_categories.category_id = property.property_category_id', 'left');
+        $this->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');
+        $this->db->join('property_types', 'property_types.type_id = property.property_type_id', 'left');
+        $this->db->order_by('property_order', 'asc');
         if (is_numeric($id)) {
-            $this->db->where('articleid', $id);
+            $this->db->where('property_id', $id);
         }
         if ($slug != '') {
-            $this->db->where('slug', $slug);
+            $this->db->where('property_slug', $slug);
         }
-        if ($this->input->get('groupid')) {
-            $this->db->where('articlegroup', $this->input->get('groupid'));
+        if ($this->input->get('category_id')) {
+            $this->db->where('property_category_id', $this->input->get('category_id'));
         }
         if (is_numeric($id) || $slug != '') {
             return $this->db->get()->row();
@@ -46,21 +48,16 @@ class Property_model extends CRM_Model
         $total_related_articles = 5;
         $total_related_articles = do_action('total_related_articles', $total_related_articles);
 
-        $this->db->select('articlegroup');
-        $this->db->where('articleid', $current_id);
-        $article = $this->db->get('tblknowledgebase')->row();
+        $this->db->select('property_category_id');
+        $this->db->where('property_id', $current_id);
+        $article = $this->db->get('property')->row();
 
-        $this->db->where('articlegroup', $article->articlegroup);
-        $this->db->where('articleid !=', $current_id);
+        $this->db->where('property_category_id', $article->property_category_id);
+        $this->db->where('property_id !=', $current_id);
         $this->db->where('active', 1);
-        if ($customers == true) {
-            $this->db->where('staff_article', 0);
-        } else {
-            $this->db->where('staff_article', 1);
-        }
         $this->db->limit($total_related_articles);
 
-        return $this->db->get('tblknowledgebase')->result_array();
+        return $this->db->get('property')->result_array();
     }
 
     /**
@@ -70,30 +67,51 @@ class Property_model extends CRM_Model
     public function add_article($data)
     {
         if (isset($data['disabled'])) {
-            $data['active'] = 0;
+            $data['property_active'] = 0;
             unset($data['disabled']);
         } else {
-            $data['active'] = 1;
+            $data['property_active'] = 1;
         }
-        if (isset($data['staff_article'])) {
-            $data['staff_article'] = 1;
-        } else {
-            $data['staff_article'] = 0;
+        if (is_array($data['characteristic_id'])) {
+            $characteristic_id = $data['characteristic_id'];
+            unset($data['characteristic_id']);
         }
-        $data['datecreated'] = date('Y-m-d H:i:s');
-        $data['slug']        = slug_it($data['subject']);
-        $this->db->like('slug', $data['slug']);
-        $slug_total = $this->db->count_all_results('tblknowledgebase');
+        if (is_array($data['property_image'])) {
+            $property_image = $data['property_image'];
+            unset($data['property_image']);
+        }
+        $data['property_created_at'] = date('Y-m-d H:i:s');
+        $data['property_slug']        = slug_it($data['property_name']);
+        $this->db->like('property_slug', $data['property_slug']);
+        $slug_total = $this->db->count_all_results('property');
         if ($slug_total > 0) {
-            $data['slug'] .= '-' . ($slug_total + 1);
+            $data['property_slug'] .= '-' . ($slug_total + 1);
         }
 
-        $data = do_action('before_add_kb_article', $data);
+        $data = do_action('before_add_propertu_article', $data);
 
-        $this->db->insert('tblknowledgebase', $data);
+        $this->db->insert('property', $data);
         $insert_id = $this->db->insert_id();
+        if ($insert_id && !empty($characteristic_id)) {
+            foreach ($characteristic_id as $key => $value) {
+                $this->db->insert('property_characteristic_metas', [
+                    'property_id' => $insert_id,
+                    'characteristic_id' => $value,
+                ]);
+            }
+        }
+        if ($insert_id && !empty($property_image)) {
+            foreach ($property_image as $key => $value) {
+                if ($value) {
+                    $this->db->insert('property_images', [
+                        'property_id' => $insert_id,
+                        'image_name' => $value,
+                    ]);
+                }
+            }
+        }
         if ($insert_id) {
-            logActivity('New Article Added [ArticleID: ' . $insert_id . ' GroupID: ' . $data['articlegroup'] . ']');
+            logActivity('New Property Added [ArticleID: ' . $insert_id . ' Cat Id: ' . $data['category_id'] . ']');
         }
 
         return $insert_id;
@@ -108,20 +126,48 @@ class Property_model extends CRM_Model
     public function update_article($data, $id)
     {
         if (isset($data['disabled'])) {
-            $data['active'] = 0;
+            $data['property_active'] = 0;
             unset($data['disabled']);
         } else {
-            $data['active'] = 1;
+            $data['property_active'] = 1;
+        }
+        if (is_array($data['characteristic_id'])) {
+            $characteristic_id = $data['characteristic_id'];
+            unset($data['characteristic_id']);
+        }
+        if (is_array($data['property_image'])) {
+            $property_image = $data['property_image'];
+            unset($data['property_image']);
         }
 
-        if (isset($data['staff_article'])) {
-            $data['staff_article'] = 1;
-        } else {
-            $data['staff_article'] = 0;
+        $this->db->where('property_id', $id);
+        $this->db->update('property', $data);
+        
+        $this->db->where('property_id', $id);
+        $this->db->delete('property_characteristic_metas');
+        if ($id && !empty($characteristic_id)) {
+            foreach ($characteristic_id as $key => $value) {
+                $this->db->insert('property_characteristic_metas', [
+                    'property_id' => $id,
+                    'characteristic_id' => $value,
+                ]);
+            }
         }
 
-        $this->db->where('articleid', $id);
-        $this->db->update('tblknowledgebase', $data);
+
+        $this->db->where('property_id', $id);
+        $this->db->delete('property_images');
+        if ($id && !empty($property_image)) {
+            foreach ($property_image as $key => $value) {
+                if ($value) {
+                    $this->db->insert('property_images', [
+                        'property_id' => $id,
+                        'image_name' => $value,
+                    ]);
+                }
+            }
+        }
+
         if ($this->db->affected_rows() > 0) {
             logActivity('Article Updated [ArticleID: ' . $id . ']');
 
@@ -134,11 +180,11 @@ class Property_model extends CRM_Model
     public function update_kan_ban($data)
     {
         $affectedRows = 0;
-        foreach ($data['order'] as $o) {
-            $this->db->where('articleid', $o[0]);
-            $this->db->update('tblknowledgebase', [
-                'article_order' => $o[1],
-                'articlegroup'  => $data['groupid'],
+        foreach ($data['property_order'] as $o) {
+            $this->db->where('property_id', $o[0]);
+            $this->db->update('property', [
+                'property_id' => $o[1],
+                'property_category_id'  => $data['category_id'],
             ]);
             if ($this->db->affected_rows() > 0) {
                 $affectedRows++;
@@ -158,9 +204,9 @@ class Property_model extends CRM_Model
      */
     public function change_article_status($id, $status)
     {
-        $this->db->where('articleid', $id);
-        $this->db->update('tblknowledgebase', [
-            'active' => $status,
+        $this->db->where('property_id', $id);
+        $this->db->update('property', [
+            'property_active' => $status,
         ]);
         logActivity('Article Status Changed [ArticleID: ' . $id . ' Status: ' . $status . ']');
     }
@@ -168,10 +214,10 @@ class Property_model extends CRM_Model
     public function update_groups_order()
     {
         $data = $this->input->post();
-        foreach ($data['order'] as $group) {
-            $this->db->where('groupid', $group[0]);
-            $this->db->update('tblknowledgebasegroups', [
-                'group_order' => $group[1],
+        foreach ($data['category_order'] as $group) {
+            $this->db->where('category_id', $group[0]);
+            $this->db->update('property_categories', [
+                'category_order' => $group[1],
             ]);
         }
     }
@@ -183,13 +229,10 @@ class Property_model extends CRM_Model
      */
     public function delete_article($id)
     {
-        $this->db->where('articleid', $id);
-        $this->db->delete('tblknowledgebase');
+        $this->db->where('property_id', $id);
+        $this->db->delete('property');
         if ($this->db->affected_rows() > 0) {
-            $this->db->where('articleid', $id);
-            $this->db->delete('tblknowledgebasearticleanswers');
-
-            $this->db->where('rel_type', 'kb_article');
+            $this->db->where('rel_type', 'property');
             $this->db->where('rel_id', $id);
             $this->db->delete('tblviewstracking');
 
@@ -207,19 +250,20 @@ class Property_model extends CRM_Model
      * @param  mixed $active Optional - actve groups or not
      * @return mixed      array if not id passed else object
      */
-    public function get_kbg($id = '', $active = '')
+    //get_kbg
+    public function get_cat($id = '', $active = '')
     {
         if (is_numeric($active)) {
-            $this->db->where('active', $active);
+            $this->db->where('category_active', $active);
         }
         if (is_numeric($id)) {
-            $this->db->where('groupid', $id);
+            $this->db->where('category_id', $id);
 
-            return $this->db->get('tblknowledgebasegroups')->row();
+            return $this->db->get('property_categories')->row();
         }
-        $this->db->order_by('group_order', 'asc');
+        $this->db->order_by('category_order', 'asc');
 
-        return $this->db->get('tblknowledgebasegroups')->result_array();
+        return $this->db->get('property_categories')->result_array();
     }
 
     /**
@@ -227,26 +271,26 @@ class Property_model extends CRM_Model
      * @param array $data group data
      * @return boolean
      */
-    public function add_group($data)
+    public function add_cat($data)
     {
         if (isset($data['disabled'])) {
-            $data['active'] = 0;
+            $data['category_active'] = 0;
             unset($data['disabled']);
         } else {
-            $data['active'] = 1;
+            $data['category_active'] = 1;
         }
 
-        $data['group_slug']        = slug_it($data['name']);
-        $this->db->like('group_slug', $data['group_slug']);
-        $slug_total = $this->db->count_all_results('tblknowledgebasegroups');
+        $data['category_slug']        = slug_it($data['category_name']);
+        $this->db->like('category_slug', $data['category_slug']);
+        $slug_total = $this->db->count_all_results('property_categories');
         if ($slug_total > 0) {
-            $data['group_slug'] .= '-' . ($slug_total + 1);
+            $data['category_slug'] .= '-' . ($slug_total + 1);
         }
 
-        $this->db->insert('tblknowledgebasegroups', $data);
+        $this->db->insert('property_categories', $data);
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
-            logActivity('New Article Group Added [GroupID: ' . $insert_id . ']');
+            logActivity('New Article Group Added [CatID: ' . $insert_id . ']');
 
             return $insert_id;
         }
@@ -259,11 +303,11 @@ class Property_model extends CRM_Model
      * @param  mixed $id groupid
      * @return object
      */
-    public function get_kbg_by_id($id)
+    public function get_cat_by_id($id)
     {
-        $this->db->where('groupid', $id);
+        $this->db->where('category_id', $id);
 
-        return $this->db->get('tblknowledgebasegroups')->row();
+        return $this->db->get('property_categories')->row();
     }
 
     /**
@@ -275,15 +319,15 @@ class Property_model extends CRM_Model
     public function update_group($data, $id)
     {
         if (isset($data['disabled'])) {
-            $data['active'] = 0;
+            $data['category_active'] = 0;
             unset($data['disabled']);
         } else {
-            $data['active'] = 1;
+            $data['category_active'] = 1;
         }
-        $this->db->where('groupid', $id);
-        $this->db->update('tblknowledgebasegroups', $data);
+        $this->db->where('category_id', $id);
+        $this->db->update('property_categories', $data);
         if ($this->db->affected_rows() > 0) {
-            logActivity('Article Group Updated [GroupID: ' . $id . ']');
+            logActivity('Article Group Updated [CatID: ' . $id . ']');
 
             return true;
         }
@@ -298,19 +342,11 @@ class Property_model extends CRM_Model
      */
     public function change_group_status($id, $status)
     {
-        $this->db->where('groupid', $id);
-        $this->db->update('tblknowledgebasegroups', [
-            'active' => $status,
+        $this->db->where('category_id', $id);
+        $this->db->update('property_categories', [
+            'category_active' => $status,
         ]);
-        logActivity('Article Status Changed [GroupID: ' . $id . ' Status: ' . $status . ']');
-    }
-
-    public function change_group_color($data)
-    {
-        $this->db->where('groupid', $data['group_id']);
-        $this->db->update('tblknowledgebasegroups', [
-            'color' => $data['color'],
-        ]);
+        logActivity('Article Status Changed [CatID: ' . $id . ' Status: ' . $status . ']');
     }
 
     /**
@@ -320,17 +356,17 @@ class Property_model extends CRM_Model
      */
     public function delete_group($id)
     {
-        $current = $this->get_kbg_by_id($id);
+        $current = $this->get_cat_by_id($id);
         // Check if group already is using
-        if (is_reference_in_table('articlegroup', 'tblknowledgebase', $id)) {
+        if (is_reference_in_table('property_category_id', 'property', $id)) {
             return [
                 'referenced' => true,
             ];
         }
-        $this->db->where('groupid', $id);
-        $this->db->delete('tblknowledgebasegroups');
+        $this->db->where('category_id', $id);
+        $this->db->delete('property_categories');
         if ($this->db->affected_rows() > 0) {
-            logActivity('Knowledge Base Group Deleted');
+            logActivity('Category Group Deleted');
 
             return true;
         }
@@ -338,42 +374,295 @@ class Property_model extends CRM_Model
         return false;
     }
 
-    /**
-     * Add new article vote / Called from client area
-     * @param array $data article data
-     * @return mixed
-     */
-    public function add_article_answer($data)
+    /** Type **/
+    public function get_type($id = '', $active = '')
     {
-        $articleid = $this->input->post('articleid');
-        $ip        = $this->input->ip_address();
-        $this->db->where('ip', $ip)->where('articleid', $articleid)->order_by('date', 'desc')->limit(1);
-        $answer = $this->db->get('tblknowledgebasearticleanswers')->row();
-        if ($answer) {
-            $last_answer    = strtotime($answer->date);
-            $minus_24_hours = strtotime('-24 hours');
-            if ($last_answer >= $minus_24_hours) {
-                return [
-                    'success' => false,
-                    'message' => _l('clients_article_only_1_vote_today'),
-                ];
-            }
+        $this->db->select('category_id, category_name, category_slug, category_description, category_active, category_order, type_id, type_name,type_slug,type_category_id,type_description,type_active,type_order');
+        $this->db->from('property_types');
+        $this->db->join('property_categories', 'property_categories.category_id = property_types.type_category_id', 'left');
+        if (is_numeric($active)) {
+            $this->db->where('type_active', $active);
         }
-        $data['answer']    = $data['answer'];
-        $data['ip']        = $ip;
-        $data['date']      = date('Y-m-d H:i:s');
-        $data['articleid'] = $articleid;
-        $this->db->insert('tblknowledgebasearticleanswers', $data);
-        $insert_id = $this->db->insert_id();
-        if ($insert_id) {
-            return [
-                'success' => true,
-                'message' => _l('clients_article_voted_thanks_for_feedback'),
-            ];
+        if (is_numeric($id)) {
+            $this->db->where('type_id', $id);
+
+            return $this->db->get()->row();
+        }
+        $this->db->order_by('type_order', 'asc');
+
+        return $this->db->get()->result_array();
+    }
+
+    public function add_type($data)
+    {
+        if (isset($data['disabled'])) {
+            $data['type_active'] = 0;
+            unset($data['disabled']);
+        } else {
+            $data['type_active'] = 1;
         }
 
-        return [
-            'success' => false,
-        ];
+        $data['type_slug']        = slug_it($data['type_name']);
+        $this->db->like('type_slug', $data['type_slug']);
+        $slug_total = $this->db->count_all_results('property_types');
+        if ($slug_total > 0) {
+            $data['type_slug'] .= '-' . ($slug_total + 1);
+        }
+
+        $this->db->insert('property_types', $data);
+        $insert_id = $this->db->insert_id();
+        if ($insert_id) {
+            logActivity('New Type [ID: ' . $insert_id . ']');
+
+            return $insert_id;
+        }
+
+        return false;
+    }
+
+    public function update_type($data, $id)
+    {
+        if (isset($data['disabled'])) {
+            $data['type_active'] = 0;
+            unset($data['disabled']);
+        } else {
+            $data['type_active'] = 1;
+        }
+        $this->db->where('type_id', $id);
+        $this->db->update('property_types', $data);
+        if ($this->db->affected_rows() > 0) {
+            logActivity('Updated Type [ID: ' . $id . ']');
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function change_type_status($id, $status)
+    {
+        $this->db->where('type_id', $id);
+        $this->db->update('property_types', [
+            'type_active' => $status,
+        ]);
+        logActivity('Type Status Changed [ID: ' . $id . ' Status: ' . $status . ']');
+    }
+
+    public function delete_type($id)
+    {
+        $current = $this->get_type_by_id($id);
+        if (is_reference_in_table('property_type_id', 'property', $id)) {
+            return [
+                'referenced' => true,
+            ];
+        }
+        $this->db->where('type_id', $id);
+        $this->db->delete('property_types');
+        if ($this->db->affected_rows() > 0) {
+            logActivity('Type Deleted');
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function get_type_by_id($id)
+    {
+        $this->db->where('type_id', $id);
+
+        return $this->db->get('property_types')->row();
+    }
+
+    /** Location **/
+    public function get_location($id = '', $active = '')
+    {
+        $this->db->select('location_id, location_name,location_slug,location_description,location_active,location_order');
+        $this->db->from('property_locations');
+        if (is_numeric($active)) {
+            $this->db->where('location_active', $active);
+        }
+        if (is_numeric($id)) {
+            $this->db->where('location_id', $id);
+
+            return $this->db->get()->row();
+        }
+        $this->db->order_by('location_order', 'asc');
+
+        return $this->db->get()->result_array();
+    }
+
+    public function add_location($data)
+    {
+        if (isset($data['disabled'])) {
+            $data['location_active'] = 0;
+            unset($data['disabled']);
+        } else {
+            $data['location_active'] = 1;
+        }
+
+        $data['location_slug']        = slug_it($data['location_name']);
+        $this->db->like('location_slug', $data['location_slug']);
+        $slug_total = $this->db->count_all_results('property_locations');
+        if ($slug_total > 0) {
+            $data['location_slug'] .= '-' . ($slug_total + 1);
+        }
+
+        $this->db->insert('property_locations', $data);
+        $insert_id = $this->db->insert_id();
+        if ($insert_id) {
+            logActivity('New location [ID: ' . $insert_id . ']');
+
+            return $insert_id;
+        }
+
+        return false;
+    }
+
+    public function update_location($data, $id)
+    {
+        if (isset($data['disabled'])) {
+            $data['location_active'] = 0;
+            unset($data['disabled']);
+        } else {
+            $data['location_active'] = 1;
+        }
+        $this->db->where('location_id', $id);
+        $this->db->update('property_locations', $data);
+        if ($this->db->affected_rows() > 0) {
+            logActivity('Updated location [ID: ' . $id . ']');
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function change_location_status($id, $status)
+    {
+        $this->db->where('location_id', $id);
+        $this->db->update('property_locations', [
+            'location_active' => $status,
+        ]);
+        logActivity('Location Status Changed [ID: ' . $id . ' Status: ' . $status . ']');
+    }
+
+    public function delete_location($id)
+    {
+        $current = $this->get_location_by_id($id);
+        if (is_reference_in_table('property_location_id', 'property', $id)) {
+            return [
+                'referenced' => true,
+            ];
+        }
+        $this->db->where('location_id', $id);
+        $this->db->delete('property_locations');
+        if ($this->db->affected_rows() > 0) {
+            logActivity('Location Deleted');
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function get_location_by_id($id)
+    {
+        $this->db->where('location_id', $id);
+
+        return $this->db->get('property_locations')->row();
+    }
+
+    /** Characteristic **/
+    public function get_characteristic($id = '', $active = '')
+    {
+        $this->db->select('characteristic_id, characteristic_name,characteristic_slug,characteristic_description,characteristic_active,characteristic_order');
+        $this->db->from('property_characteristics');
+        if (is_numeric($active)) {
+            $this->db->where('characteristic_active', $active);
+        }
+        if (is_numeric($id)) {
+            $this->db->where('characteristic_id', $id);
+
+            return $this->db->get()->row();
+        }
+        $this->db->order_by('characteristic_order', 'asc');
+
+        return $this->db->get()->result_array();
+    }
+
+    public function add_characteristic($data)
+    {
+        if (isset($data['disabled'])) {
+            $data['characteristic_active'] = 0;
+            unset($data['disabled']);
+        } else {
+            $data['characteristic_active'] = 1;
+        }
+
+        $data['characteristic_slug']        = slug_it($data['characteristic_name']);
+        $this->db->like('characteristic_slug', $data['characteristic_slug']);
+        $slug_total = $this->db->count_all_results('property_characteristics');
+        if ($slug_total > 0) {
+            $data['characteristic_slug'] .= '-' . ($slug_total + 1);
+        }
+
+        $this->db->insert('property_characteristics', $data);
+        $insert_id = $this->db->insert_id();
+        if ($insert_id) {
+            logActivity('New characteristic [ID: ' . $insert_id . ']');
+
+            return $insert_id;
+        }
+
+        return false;
+    }
+
+    public function update_characteristic($data, $id)
+    {
+        if (isset($data['disabled'])) {
+            $data['characteristic_active'] = 0;
+            unset($data['disabled']);
+        } else {
+            $data['characteristic_active'] = 1;
+        }
+        $this->db->where('characteristic_id', $id);
+        $this->db->update('property_characteristics', $data);
+        if ($this->db->affected_rows() > 0) {
+            logActivity('Updated characteristic [ID: ' . $id . ']');
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function change_characteristic_status($id, $status)
+    {
+        $this->db->where('characteristic_id', $id);
+        $this->db->update('property_characteristics', [
+            'characteristic_active' => $status,
+        ]);
+        logActivity('Characteristic Status Changed [ID: ' . $id . ' Status: ' . $status . ']');
+    }
+
+    public function delete_characteristic($id)
+    {
+        $this->db->where('characteristic_id', $id);
+        $this->db->delete('property_characteristics');
+        if ($this->db->affected_rows() > 0) {
+            logActivity('Characteristic Deleted');
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function get_characteristic_by_id($id)
+    {
+        $this->db->where('characteristic_id', $id);
+
+        return $this->db->get('property_characteristics')->row();
     }
 }
