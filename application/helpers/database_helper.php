@@ -787,6 +787,50 @@ function get_kb_groups()
 
     return $CI->db->get('tblknowledgebasegroups')->result_array();
 }
+
+function get_property_cat()
+{
+    $CI = & get_instance();
+
+    return $CI->db->get('property_categories')->result_array();
+}
+function get_property_type()
+{
+    $CI = & get_instance();
+
+    return $CI->db->get('property_types')->result_array();
+}
+function get_property_location()
+{
+    $CI = & get_instance();
+
+    return $CI->db->get('property_locations')->result_array();
+}
+function get_property_characteristic()
+{
+    $CI = & get_instance();
+    return $CI->db->get('property_characteristics')->result_array();
+}
+function get_property_image($property_id='')
+{
+    $CI = & get_instance();
+    if ($property_id) {
+        $CI->db->where('property_id', $property_id);
+    }
+    return $CI->db->get('property_images')->result_array();
+}
+
+function get_property_characteristic_meta($property_id='')
+{
+    $CI = & get_instance();
+    // $CI->db->select('characteristic_id');
+    if ($property_id) {
+        $CI->db->where('property_id', $property_id);
+    }
+    return $CI->db->get('property_characteristic_metas')->result_array();
+}
+
+
 /**
  * Get all countries stored in database
  * @return array
