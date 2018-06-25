@@ -30,6 +30,7 @@ class Property extends Admin_controller
         }
         if ($this->input->post()) {
             $data                = $this->input->post();
+            $data['property_content'] = $this->input->post('property_content', false);
             if ($id == '') {
                 if (!has_permission('property', '', 'create')) {
                     access_denied('property');

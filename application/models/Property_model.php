@@ -16,7 +16,7 @@ class Property_model extends CRM_Model
      */
     public function get($id = '', $slug = '')
     {
-        $this->db->select('property_id, property_name, property_avatar, property_content, property_category_id, property_type_id, property_location_id, property_status, property_price, property_slug, property_created_at, property_active, property_order, category_name, category_slug, category_description, category_active, category_order, location_name,location_description,location_slug,location_active,location_order, type_name,type_slug,type_description,type_active,type_order');
+        $this->db->select('property_id, property_name, property_avatar, property_content, property_category_id, property_type_id, property_location_id, property_status, property_price, property_bedroom, property_bathroom, property_acreage, property_facade, property_slug, property_created_at, property_active, property_order, category_name, category_slug, category_description, category_active, category_order, location_name,location_description,location_slug,location_active,location_order, type_name,type_slug,type_description,type_active,type_order');
         $this->db->from('property');
         $this->db->join('property_categories', 'property_categories.category_id = property.property_category_id', 'left');
         $this->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');

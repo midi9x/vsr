@@ -405,3 +405,4 @@ ERROR - 2018-06-24 17:52:27 --> 404 Page Not Found: Assets/plugins
 ERROR - 2018-06-24 17:52:54 --> 404 Page Not Found: Assets/plugins
 ERROR - 2018-06-24 17:53:22 --> 404 Page Not Found: Assets/plugins
 ERROR - 2018-06-24 22:55:50 --> Severity: Notice --> Undefined index: category_id /Applications/XAMPP/xamppfiles/htdocs/batdongsan/application/models/Property_model.php 114
+ERROR - 2018-06-24 23:12:50 --> Could not find the language line "edit_property_location"
