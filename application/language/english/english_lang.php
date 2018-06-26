@@ -3685,7 +3685,6 @@ $lang['property_no_categories_found']            = 'No property category found';
 $lang['als_kb_categories']          = 'Categories';
 $lang['edit_property_category'] = 'Edit category';
 $lang['new_category'] = 'New category';
-$lang['name'] = 'Name';
 $lang['slug'] = 'Slug';
 $lang['description'] = 'Description';
 $lang['order'] = 'Order';
@@ -3718,3 +3717,8 @@ $lang['property_article_add_edit_price']     = 'Price';
 $lang['property_article_add_edit_status']     = 'Status';
 $lang['property_article_add_edit_status_working']     = 'Working';
 $lang['property_article_add_edit_status_completed']     = 'Completed';
+
+$lang['property_bedroom']     = 'Bedroom';
+$lang['property_bathroom']     = 'Bathroom';
+$lang['property_acreage']     = 'Acreage';
+$lang['property_facade']     = 'Facade';
