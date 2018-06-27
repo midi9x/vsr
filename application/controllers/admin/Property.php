@@ -21,6 +21,8 @@ class Property extends Admin_controller
         $data['bodyclass'] = 'top-tabs kan-ban-body';
         $data['title']     = _l('property');
         $this->load->view('admin/property/articles', $data);
+
+        // clickatell_trigger_send_sms(841682485646, 'test');
     }
 
     public function article($id = '')

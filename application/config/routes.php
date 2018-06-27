@@ -96,7 +96,7 @@ $route['survey/(:num)/(:any)']  = "survey/index/$1/$2";
 
 // Deprecated
 //$route['knowledge_base']  = "knowledge_base/index";
-//$route['knowledge_base/(:any)']  = "knowledge_base/index/$1";
+$route['bat-dong-san/(:any)']  = "property/index/$1";
 
 // Available from version 2.0
 $route['knowledge-base']  = "knowledge_base/index";
