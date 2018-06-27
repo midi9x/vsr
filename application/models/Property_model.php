@@ -180,10 +180,10 @@ class Property_model extends CRM_Model
     public function update_kan_ban($data)
     {
         $affectedRows = 0;
-        foreach ($data['property_order'] as $o) {
+        foreach ($data['order'] as $o) {
             $this->db->where('property_id', $o[0]);
             $this->db->update('property', [
-                'property_id' => $o[1],
+                'property_order' => $o[1],
                 'property_category_id'  => $data['category_id'],
             ]);
             if ($this->db->affected_rows() > 0) {

@@ -3722,3 +3722,5 @@ $lang['property_bedroom']     = 'Bedroom';
 $lang['property_bathroom']     = 'Bathroom';
 $lang['property_acreage']     = 'Acreage';
 $lang['property_facade']     = 'Facade';
+$lang['send_email']     = 'Send email';
+$lang['send_sms']     = 'Send sms';
