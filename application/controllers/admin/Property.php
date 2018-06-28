@@ -60,6 +60,7 @@ class Property extends Admin_controller
             $data['article'] = $article;
             $title           = _l('edit') . ' ' . $article->property_name;
         }
+        $data['client_groups']         = $this->clients_model->get_groups();
         $data['bodyclass'] = 'property-article';
         $data['title']     = $title;
         $this->load->view('admin/property/article', $data);
@@ -443,6 +444,24 @@ class Property extends Admin_controller
             set_alert('warning', _l('problem_deleting'));
         }
         redirect(admin_url('property/manage_characteristics'));
+    }
+
+    public function get_customer()
+    {
+        if ($this->input->is_ajax_request()) {
+            if ($this->input->post()) {
+                $data  = $this->input->post();
+                $data['message'] = $this->input->post('message', false);
+                $customer_groups = $this->client_groups_model->get_customer_by_groups($data['groups']);
+                
+                echo json_encode(['customers' => $customer_groups]);
+            }
+        }
+    }
+
+    public function send_email()
+    {
+        
     }
 
 }

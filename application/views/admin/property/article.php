@@ -14,6 +14,9 @@
   iframe#property_content_ifr {
     min-height: 300px!important;
   }
+  .ui-widget-header {
+    border: 1px solid #2985bd;
+  }
 </style>
 <div id="wrapper">
  <div class="content">
@@ -229,8 +232,8 @@
 <?php if((has_permission('property','','create') && !isset($article)) || has_permission('property','','edit') && isset($article)){ ?>
 <div class="btn-bottom-toolbar btn-toolbar-container-out text-right">
   
-  <button type="button" class="btn btn-primary pull-left"><span class="glyphicon glyphicon-envelope"></span> <?php echo _l('send_email'); ?></button>
-  <button type="button" style="margin-left: 10px;" class="btn btn-success pull-left"><span class=" glyphicon glyphicon-comment"></span> <?php echo _l('send_sms'); ?></button>
+  <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#send-email"><span class="glyphicon glyphicon-envelope"></span> <?php echo _l('send_email'); ?></button>
+  <button type="button" style="margin-left: 10px;" class="btn btn-success pull-left" data-toggle="modal" data-target="#send-sms"><span class=" glyphicon glyphicon-comment"></span> <?php echo _l('send_sms'); ?></button>
 
   <button type="submit" class="btn btn-info pull-right"><?php echo _l('submit'); ?></button>
 </div>
@@ -240,6 +243,8 @@
 </div>
 <?php $this->load->view('admin/property/category'); ?>
 <?php init_tail(); ?>
+<?php $this->load->view('admin/property/email'); ?>
+<?php $this->load->view('admin/property/sms'); ?>
 <script>
 
   function selectImage(ele) {
