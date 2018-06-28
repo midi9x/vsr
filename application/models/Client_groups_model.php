@@ -169,4 +169,12 @@ class Client_groups_model extends CRM_Model
 
         return false;
     }
+
+    public function get_customer_by_groups($ids)
+    {
+        $this->db->where_in('groupid', $ids);
+         $this->db->group_by('customer_id'); 
+
+        return $this->db->get('tblcustomergroups_in')->result_array();
+    }
 }
