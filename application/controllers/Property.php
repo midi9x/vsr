@@ -7,11 +7,12 @@ class Property extends Clients_controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('property_model');
     }
 
     public function index($slug = '')
     {
-        echo $slug;exit;
+        echo '<pre>';print_r($this->property_model->get(false, $slug)); echo '</pre>';exit;
         $data['title']                 = _l('property');
         $this->view                    = 'property';
         $this->data                    = $data;

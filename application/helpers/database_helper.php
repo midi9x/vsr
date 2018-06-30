@@ -787,6 +787,12 @@ function get_kb_groups()
 
     return $CI->db->get('tblknowledgebasegroups')->result_array();
 }
+function get_news_groups()
+{
+    $CI = & get_instance();
+
+    return $CI->db->get('newsgroups')->result_array();
+}
 
 function get_property_cat()
 {

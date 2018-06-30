@@ -66,3 +66,6 @@ define('SESS_SAVE_PATH','tblsessions');
  * Enables CSRF Protection
  */
 define('APP_CSRF_PROTECTION',true);
+
+define('NEWS_SLUG', 'tin-tuc/');
+define('PROPERTY_SLUG', 'bat-dong-san/');

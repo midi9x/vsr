@@ -15,13 +15,17 @@
                             $selected = array();
                             echo render_select('groups[]',$client_groups,array('id','name'),'customer_groups',$selected,array('multiple'=>true,'data-actions-box'=>true),array(),'','',false);
                             ?>
+                            <?php 
+                                $url = site_url(PROPERTY_SLUG.$article->property_slug);
+                                $property_name = $article->property_name;
+                            ?>
                             <?php echo render_input('subject', 'template_subject', 'Bài viết mới cập nhật tại {companyname}'); ?>
                             <?php echo render_input('from', 'template_fromname', '{companyname}'); ?>
-                            <?php echo render_textarea('message','email_template_email_message', 'Xin chào, <br /><br />B&agrave;i viết mới được cập nhật tại {companyname}. <br /><br />Chi tiết:<br /><br /><span style="font-size: 12pt;">Thank and best regards,<br /></span><br /><span style="font-size: 12pt;">{email_signature}</span>', null, null, null, 'tinymce'); ?>
+                            <?php echo render_textarea('message','email_template_email_message', 'Xin chào {fullname}, <br /><br />B&agrave;i viết `' . $property_name . '` vừa được cập nhật tại {companyname}. <br /><br />Chi tiết: ' . $url . '<br /><br /><span style="font-size: 12pt;">Thank and best regards,<br /></span><br /><span style="font-size: 12pt;">{email_signature}</span>', null, null, null, 'tinymce'); ?>
                         </div>
                     </div>
                     <div id="">
-                        <div id="send-progressbar" style="height:28px;width:100%;border:1px solid rgb(197, 197, 197);border-radius:4px;padding:1px;background:#fff;"><span style="position:absolute;margin:4px 0 0 8px;"></span></div>
+                        <div id="send-progressbar" style="height:30px;width:100%;border:1px solid rgb(197, 197, 197);border-radius:4px;padding:1px;background:#fff;"><span style="position:absolute;margin:4px 0 0 8px;"></span></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -60,7 +64,7 @@
                 var promise = deferred.promise();
                 $("#send-progressbar").progressbar();
                 $("#send-progressbar").css({'background': 'rgb(255, 255, 255)','border-radius': '4px'});
-                $("#send-progressbar > div").css({'background': 'rgb(41, 133, 189)','height': '28px','border-radius': '4px'});
+                $("#send-progressbar > div").css({'background': 'rgb(41, 133, 189)','height': '30px','border-radius': '4px'});
 
                 function inProgress() {
                     $("#send-progressbar").progressbar({
@@ -81,19 +85,23 @@
                 
                 promise.progress(inProgress);
                 countUp();
-                $.each(response.customers, function(indexInArray, domain_val) {
+                $.each(response.customers, function(indexInArray, valueCustomer) {
                     setTimeout(function(){
                         $.ajax({
                             type: 'POST',
                             url: admin_url + 'property/send_email',
-                            data: {},
+                            data: $('#send-email-form').serialize() + "&customer_id=" + valueCustomer.customer_id,
                             success: function(data) {
-                                countUp();        
+                                countUp();
+                            },
+                            error: function() {
+                                alert('Có lỗi xảy ra');
+                                window.location.reload();
+                                break;
                             }
                         });
                     }, indexInArray * 300);
                 });
-
             }
 
         });

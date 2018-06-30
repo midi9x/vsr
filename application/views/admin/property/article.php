@@ -30,7 +30,7 @@
        <?php if(isset($article)){ ?>
        <br />
        <small>
-        <a href="<?php echo site_url('bat-dong-san/'.$article->property_slug); ?>" target="_blank"><?php echo site_url('bat-dong-san/'.$article->property_slug); ?></a>
+        <a href="<?php echo site_url(PROPERTY_SLUG.$article->property_slug); ?>" target="_blank"><?php echo site_url(PROPERTY_SLUG.$article->property_slug); ?></a>
       </small>
       <?php } ?>
     </h4>
@@ -65,7 +65,7 @@
         <?php if(has_permission('property','','create')){
           echo render_select_with_input_group('property_category_id',get_property_cat(),array('category_id','category_name'),'property_article_add_edit_category',$value,'<a target="blank" href="' . admin_url('property/manage_categories') .'"><i class="fa fa-plus"></i></a>');
          } else {
-          echo render_select('property_category_id',$get_property_cat,array('category_id','category_name'),'property_article_add_edit_category',$value);
+          echo render_select('property_category_id',get_property_cat(),array('category_id','category_name'),'property_article_add_edit_category',$value);
         }
         ?>
       </div>
@@ -86,26 +86,7 @@
         ?>
       </div>
     </div>
-
-   <hr>
-   <div class="checkbox checkbox-primary">
-     <input type="checkbox" id="disabled" name="disabled" <?php if(isset($article) && $article->property_active == 0){echo 'checked';} ?>>
-     <label for="disabled"><?php echo _l('disabled'); ?></label>
-   </div>
-   <?php $contents = ''; if(isset($article)){$contents = $article->property_content;} ?>
-   <?php echo render_textarea('property_content','',$contents,array(),array(),'','tinymce'); ?>
-
-    </div>
-    <div class="col-md-4">
-      <?php $value = (isset($article) ? $article->property_location_id : ''); ?>
-       <?php if(has_permission('property','','create')){
-         echo render_select_with_input_group('property_location_id',get_property_location(),array('location_id','location_name'),'property_article_add_edit_location',$value,'<a target="blank" href="' . admin_url('property/manage_locations') .'"><i class="fa fa-plus"></i></a>');
-       } else {
-        echo render_select('property_location_id',get_property_location(),array('location_id','location_name'),'property_article_add_edit_location',$value);
-      }
-      ?>
-
-      <?php 
+    <?php 
       $characteristic = get_property_characteristic();
         if(isset($article)){ 
           $get_property_characteristic_meta = get_property_characteristic_meta($article->property_id);
@@ -135,8 +116,29 @@
         $field->inline = true;
         echo render_form_builder_field($field);
       ?>
-      <?php $value = (isset($article) ? $article->property_avatar : ''); ?>
+   <hr>
+   <div class="checkbox checkbox-primary">
+     <input type="checkbox" id="stick" name="stick" <?php if(isset($article) && $article->property_stick == 1){echo 'checked';} ?>>
+     <label for="stick"><?php echo _l('property_stick'); ?></label>
+   </div>
 
+    <div class="checkbox checkbox-primary">
+     <input type="checkbox" id="disabled" name="disabled" <?php if(isset($article) && $article->property_active == 0){echo 'checked';} ?>>
+     <label for="disabled"><?php echo _l('property_article_disabled'); ?></label>
+   </div>
+   <?php $contents = ''; if(isset($article)){$contents = $article->property_content;} ?>
+   <?php echo render_textarea('property_content','',$contents,array(),array(),'','tinymce'); ?>
+    </div>
+    <div class="col-md-4">
+      <?php $value = (isset($article) ? $article->property_location_id : ''); ?>
+      <?php if(has_permission('property','','create')){
+         echo render_select_with_input_group('property_location_id',get_property_location(),array('location_id','location_name'),'property_article_add_edit_location',$value,'<a target="blank" href="' . admin_url('property/manage_locations') .'"><i class="fa fa-plus"></i></a>');
+       } else {
+        echo render_select('property_location_id',get_property_location(),array('location_id','location_name'),'property_article_add_edit_location',$value);
+      }
+      ?>
+
+      <?php $value = (isset($article) ? $article->property_avatar : ''); ?>
       <div class="form-group">
         <label for="property_bedroom" class="control-label">
           <small class="req text-danger">* </small> <?=_l('property_article_add_edit_avatar');?>
@@ -224,6 +226,11 @@
 
       <?php $value = (isset($article) ? $article->property_status : 1);?>
       <?php echo render_status_option($value, _l('property_article_add_edit_status'), null, _l('property_article_add_edit_status_working'), _l('property_article_add_edit_status_completed')); ?>
+      
+      <?php $value = (isset($article) ? $article->property_seo_title : ''); ?>
+       <?php echo render_input('property_seo_title','seo_title', $value); ?>
+       <?php $value = (isset($article) ? $article->property_seo_description : ''); ?>
+       <?php echo render_textarea('property_seo_description', 'seo_description', $value, ['rows' => 10]); ?>
     </div>
   </div>
 </div>
@@ -231,10 +238,10 @@
 </div>
 <?php if((has_permission('property','','create') && !isset($article)) || has_permission('property','','edit') && isset($article)){ ?>
 <div class="btn-bottom-toolbar btn-toolbar-container-out text-right">
-  
-  <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#send-email"><span class="glyphicon glyphicon-envelope"></span> <?php echo _l('send_email'); ?></button>
-  <button type="button" style="margin-left: 10px;" class="btn btn-success pull-left" data-toggle="modal" data-target="#send-sms"><span class=" glyphicon glyphicon-comment"></span> <?php echo _l('send_sms'); ?></button>
-
+  <?php if(isset($article)){  ?>
+    <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#send-email"><span class="glyphicon glyphicon-envelope"></span> <?php echo _l('send_email'); ?></button>
+    <button type="button" style="margin-left: 10px;" class="btn btn-success pull-left" data-toggle="modal" data-target="#send-sms"><span class=" glyphicon glyphicon-comment"></span> <?php echo _l('send_sms'); ?></button>
+  <?php } ?>
   <button type="submit" class="btn btn-info pull-right"><?php echo _l('submit'); ?></button>
 </div>
 <?php } ?>
@@ -243,8 +250,10 @@
 </div>
 <?php $this->load->view('admin/property/category'); ?>
 <?php init_tail(); ?>
+<?php if(isset($article)){  ?>
 <?php $this->load->view('admin/property/email'); ?>
 <?php $this->load->view('admin/property/sms'); ?>
+<?php } ?>
 <script>
 
   function selectImage(ele) {
@@ -276,6 +285,8 @@
       property_avatar:'required',
       property_price:'required',
       property_status:'required',
+      property_seo_title:'required',
+      property_seo_description:'required',
     });
 
     $(document).on('click', '.btn-add', function(e)

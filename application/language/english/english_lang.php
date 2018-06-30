@@ -134,7 +134,7 @@ $lang['department_list_name']        = 'Name';
 # Email Templates
 $lang['email_templates']                        = 'Email Templates';
 $lang['email_template']                         = 'Email Template';
-$lang['email_template_lowercase']               = 'email template';
+$lang['email_template_lowercase']             = 'email template';
 $lang['email_templates_lowercase']              = 'email templates';
 $lang['email_template_ticket_fields_heading']   = 'Tickets';
 $lang['email_template_invoices_fields_heading'] = 'Invoices';
@@ -3724,3 +3724,23 @@ $lang['property_acreage']     = 'Acreage';
 $lang['property_facade']     = 'Facade';
 $lang['send_email']     = 'Send email';
 $lang['send_sms']     = 'Send sms';
+$lang['seo_title']   = 'Seo title';
+$lang['seo_description']  = 'Seo description';
+$lang['property_stick']  = 'Stick post';
+
+// ver 1
+$lang['news_string'] = 'News';
+$lang['list_posts'] = 'List articles';
+
+$lang['property_no_contacts_found'] = 'No contacts found';
+$lang['property_contacts'] = 'Property contacts';
+$lang['contact_name'] = 'Name';
+$lang['contact_phone'] = 'Phone';
+$lang['contact_email'] = 'Email';
+$lang['contact_status'] = 'Status';
+$lang['contact_address'] = 'Address';
+$lang['contact_message'] = 'Message';
+$lang['edit_property_type'] = 'Edit type';
+$lang['edit_property_location'] = 'Edit location';
+$lang['edit_property_characteristic'] = 'Edit characteristic';
+$lang['edit_property_contact'] = 'Edit contact';

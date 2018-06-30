@@ -1219,3 +1219,23 @@ function _check_vault_entries_visibility($entries)
 
     return $new;
 }
+
+function get_contact_by_client_id($client_id = '')
+{
+
+    $CI = & get_instance();
+
+    $contact = $CI->object_cache->get('user-email-data-' . $client_id);
+
+    if (!$contact) {
+        $CI->db->where('userid', $client_id);
+        $CI->db->where('is_primary', 1);
+        $contact = $CI->db->select('*')->from('tblcontacts')->get()->row();
+        $CI->object_cache->add('user-email-data-' . $client_id, $contact);
+    }
+    if ($contact) {
+        return $contact;
+    }
+
+    return false;
+}
