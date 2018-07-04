@@ -3476,3 +3476,81 @@ $lang['test_sms_message'] = 'Test Message';
 $lang['send_test_sms'] = 'Send Test SMS';
 $lang['gdpr_short'] = 'GDPR';
 $lang['allow_non_admin_staff_to_delete_ticket_attachments'] = 'Allow non-admin staff members to delete ticket attachments';
+
+// add
+$lang['property'] 	= 'Bất động sản';
+$lang['property_article_add_edit_name']   = 'Tiêu đề';
+$lang['property_article_add_edit_category']     = 'Danh mục';
+$lang['property_string']                     = 'Bất động sản';
+$lang['property_article']                    = 'Bài viết';
+$lang['property_article_lowercase']          = 'bài viết';
+$lang['property_article_new_article']        = 'Bài viết mới';
+$lang['property_article_disabled']           = 'Vô hiệu hóa';
+$lang['property_article_description']        = 'Mô tả';
+$lang['property_no_articles_found']          = 'Không có bài viết nào';
+$lang['property_dt_article_name']            = 'Tiêu đề';
+$lang['property_dt_category_name']              = 'Danh mục';
+$lang['new_category']                     = 'Danh mục mới';
+$lang['property_category_add_edit_name']        = 'Tên danh mục';
+$lang['property_category_add_edit_description'] = 'Mô tả';
+$lang['property_category_add_edit_disabled']    = 'Vô hiệu hóa';
+$lang['property_category_add_edit_note']        = 'Tất cả bài viết trong danh mục này sẽ bị ẩn nếu bạn chọn.';
+$lang['category_table_name_heading']      = 'Tên';
+$lang['category_table_isactive_heading']  = 'Kích hoạt';
+$lang['property_no_categories_found']            = 'Không có danh mục nào';
+$lang['als_kb_categories']          = 'Danh mục';
+$lang['edit_property_category'] = 'Sửa danh mục';
+$lang['new_category'] = 'Thêm danh mục';
+$lang['slug'] = 'Slug';
+$lang['description'] = 'Mô tả';
+$lang['order'] = 'Sắp xếp';
+$lang['disabled'] = 'Khóa lại';
+$lang['content'] = 'Nội dung';
+$lang['active'] = 'Kích hoạt';
+
+$lang['als_kb_types'] = 'Thể loại';
+$lang['als_kb_locations'] = 'Địa điểm';
+$lang['als_kb_characteristics'] = 'Đặc điểm';
+$lang['new_type'] = 'Thêm thể loại';
+$lang['property_no_types_found'] = 'Không có thể loại nào';
+$lang['category'] = 'Danh mục';
+$lang['new_location'] = 'Thêm địa điểm';
+$lang['property_no_locations_found'] = 'Không có địa điểm nào';
+$lang['new_characteristic'] = 'Thêm đặc điểm';
+$lang['property_no_characteristics_found'] = 'Không có đặc điểm nào';
+
+$lang['property_article_add_edit_type']     = 'Thể loại';
+$lang['property_article_add_edit_location']     = 'Địa điểm';
+$lang['property_article_add_edit_avatar']     = 'Ảnh đại diện';
+$lang['property_image']     = 'Ảnh gallery';
+$lang['property_article_add_edit_price']     = 'Giá';
+$lang['property_article_add_edit_status']     = 'Trạng thái';
+$lang['property_article_add_edit_status_working']     = 'Đang bán (thuê)';
+$lang['property_article_add_edit_status_completed']     = 'Đã bán (thuê)';
+
+$lang['property_bedroom']     = 'Phòng ngủ';
+$lang['property_bathroom']     = 'Phòng tắm';
+$lang['property_acreage']     = 'Diện tích';
+$lang['property_facade']     = 'Mặt tiền';
+$lang['send_email']     = 'Gửi email';
+$lang['send_sms']     = 'Gửi sms';
+$lang['seo_title']   = 'Seo title';
+$lang['seo_description']  = 'Seo description';
+$lang['property_stick']  = 'Ghim bài viết';
+// ver 1
+$lang['news_string'] = 'Tin tức';
+$lang['list_posts'] = 'Danh sách bài viết';
+
+$lang['property_no_contacts_found'] = 'Không có liên hệ nào';
+$lang['property_contacts'] = 'Thông tin liên hệ';
+$lang['contact_name'] = 'Tên';
+$lang['contact_phone'] = 'Điện thoại';
+$lang['contact_email'] = 'Email';
+$lang['contact_status'] = 'Trạng thái';
+$lang['contact_address'] = 'Địa chỉ';
+$lang['contact_message'] = 'Lời nhắn';
+$lang['edit_property_type'] = 'Sửa thể loại';
+$lang['edit_property_location'] = 'Sửa địa điểm';
+$lang['edit_property_characteristic'] = 'Sửa đặc điểm';
+$lang['edit_property_contact'] = 'Sửa thông tin liên hệ';
+

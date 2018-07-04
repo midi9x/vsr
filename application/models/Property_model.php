@@ -16,7 +16,7 @@ class Property_model extends CRM_Model
      */
     public function get($id = '', $slug = '')
     {
-        $this->db->select('property_id, property_name, property_avatar, property_content, property_category_id, property_type_id, property_location_id, property_status, property_price, property_bedroom, property_bathroom, property_acreage, property_facade, property_slug, property_created_at, property_active, property_order, category_name, category_slug, category_description, category_active, category_order, location_name,location_description,location_slug,location_active,location_order, type_name,type_slug,type_description,type_active,type_order');
+        $this->db->select('property_id, property_name, property_avatar, property_content, property_category_id, property_type_id, property_location_id, property_status, property_price, property_bedroom, property_bathroom, property_acreage, property_facade, property_slug, property_seo_title, property_seo_description, property_created_at, property_active, property_order,property_stick, category_name, category_slug, category_description, category_active, category_order, location_name,location_description,location_slug,location_active,location_order, type_name,type_slug,type_description,type_active,type_order');
         $this->db->from('property');
         $this->db->join('property_categories', 'property_categories.category_id = property.property_category_id', 'left');
         $this->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');
@@ -71,6 +71,12 @@ class Property_model extends CRM_Model
             unset($data['disabled']);
         } else {
             $data['property_active'] = 1;
+        }
+        if (isset($data['stick'])) {
+            $data['property_stick'] = 1;
+            unset($data['stick']);
+        } else {
+            $data['property_stick'] = 0;
         }
         if (is_array($data['characteristic_id'])) {
             $characteristic_id = $data['characteristic_id'];
@@ -130,6 +136,12 @@ class Property_model extends CRM_Model
             unset($data['disabled']);
         } else {
             $data['property_active'] = 1;
+        }
+        if (isset($data['stick'])) {
+            $data['property_stick'] = 1;
+            unset($data['stick']);
+        } else {
+            $data['property_stick'] = 0;
         }
         if (is_array($data['characteristic_id'])) {
             $characteristic_id = $data['characteristic_id'];
@@ -664,5 +676,47 @@ class Property_model extends CRM_Model
         $this->db->where('characteristic_id', $id);
 
         return $this->db->get('property_characteristics')->row();
+    }
+
+    public function get_contacts($id = '')
+    {
+        $this->db->select('contact_id, contact_name, contact_phone, contact_email, contact_address, contact_message, contact_status, property_name, property_contacts.property_id as property_id');
+        $this->db->from('property_contacts');
+        $this->db->join('property', 'property.property_id = property_contacts.property_id');
+        if (is_numeric($id)) {
+            $this->db->where('contact_id', $id);
+
+            return $this->db->get()->row();
+        }
+        $this->db->order_by('contact_id', 'desc');
+
+        return $this->db->get()->result_array();
+    }
+
+    public function update_contact($data, $id)
+    {
+        $this->db->where('contact_id', $id);
+        $this->db->update('property_contacts', $data);
+        if ($this->db->affected_rows() > 0) {
+            logActivity('Updated contact [ID: ' . $id . ']');
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public function delete_contact($id)
+    {
+        $this->db->where('contact_id', $id);
+        $this->db->delete('property_contacts');
+        if ($this->db->affected_rows() > 0) {
+            logActivity('Contact Deleted');
+
+            return true;
+        }
+
+        return false;
     }
 }

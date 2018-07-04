@@ -45,7 +45,7 @@ foreach ($rResult as $aRow) {
     for ($i = 0; $i < count($aColumns); $i++) {
         $_data = $aRow[$aColumns[$i]];
         if ($aColumns[$i] == 'property_name') {
-            $link = site_url('property/' . $aRow['property_slug']);
+            $link = site_url(PROPERTY_SLUG . $aRow['property_slug']);
             $_data = '<b>' . $_data . '</b>';
             if (has_permission('property', '', 'edit')) {
                 $_data = '<a href="'.admin_url('property/article/' . $aRow['property_id']).'" class="font-size-14">' . $_data . '</a>';
