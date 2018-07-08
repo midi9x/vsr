@@ -68,4 +68,5 @@ define('SESS_SAVE_PATH','tblsessions');
 define('APP_CSRF_PROTECTION',true);
 
 define('NEWS_SLUG', 'tin-tuc/');
+define('LAWS_SLUG', 'luat-dac-khu/');
 define('PROPERTY_SLUG', 'bat-dong-san/');
