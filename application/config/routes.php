@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |       my-controller/my-method -> my_controller/my_method
 */
 
-$route['default_controller'] = 'clients';
+$route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
@@ -69,7 +69,7 @@ $route['admin/items/search'] = 'admin/invoice_items/search';
 
 /* Clients links and routes */
 // // In case if client access directly to url without the arguments redirect to clients url
-$route['/']  = "clients";
+$route['/']  = "home";
 
 // Deprecated
 $route['viewinvoice/(:num)/(:any)']  = "invoice/index/$1/$2";
@@ -116,6 +116,15 @@ if(strpos($_SERVER['REQUEST_URI'],'add_kb_answer') === false) {
 // $route['knowledge-base/(:any)']  = "knowledge_base/index/$1";
 $route['terms-and-conditions']  = "clients/terms_and_conditions";
 $route['privacy-policy']  = "clients/privacy_policy";
+
+$route['gioi-thieu'] = 'home/about';
+$route['luat-dac-khu'] = 'laws/index';
+$route['luat-dac-khu/(:any)'] = 'laws/index/$1';
+$route['vi-tri'] = 'location/index';
+$route['vi-tri/(:any)'] = 'location/index/$1';
+$route['tin-tuc'] = 'news/index/';
+$route['tin-tuc/(:any)'] = 'news/index/$1';
+$route['bat-dong-san'] = 'property/index';
 
 if(file_exists(APPPATH.'config/my_routes.php')){
     include_once(APPPATH.'config/my_routes.php');

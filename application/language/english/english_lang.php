@@ -3744,3 +3744,8 @@ $lang['edit_property_type'] = 'Edit type';
 $lang['edit_property_location'] = 'Edit location';
 $lang['edit_property_characteristic'] = 'Edit characteristic';
 $lang['edit_property_contact'] = 'Edit contact';
+
+$lang['laws_string'] = 'Laws';
+$lang['title_home'] = 'Home - VSR';
+$lang['title_about'] = 'About - VSR';
+$lang['title_laws'] = 'Laws - VSR';

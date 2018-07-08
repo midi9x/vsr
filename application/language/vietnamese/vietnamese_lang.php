@@ -3553,4 +3553,7 @@ $lang['edit_property_type'] = 'Sửa thể loại';
 $lang['edit_property_location'] = 'Sửa địa điểm';
 $lang['edit_property_characteristic'] = 'Sửa đặc điểm';
 $lang['edit_property_contact'] = 'Sửa thông tin liên hệ';
-
+$lang['laws_string'] = 'Luật đặc khu';
+$lang['title_home'] = 'Trang chủ - VSR';
+$lang['title_about'] = 'Giới thiệu - VSR';
+$lang['title_laws'] = 'Luật đặc khu - VSR';
