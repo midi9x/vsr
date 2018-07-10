@@ -118,12 +118,17 @@ $route['terms-and-conditions']  = "clients/terms_and_conditions";
 $route['privacy-policy']  = "clients/privacy_policy";
 
 $route['gioi-thieu'] = 'home/about';
+$route['lien-he'] = 'home/contact';
+
 $route['luat-dac-khu'] = 'laws/index';
-$route['luat-dac-khu/(:any)'] = 'laws/index/$1';
-$route['vi-tri'] = 'location/index';
-$route['vi-tri/(:any)'] = 'location/index/$1';
+$route['luat-dac-khu/(:any)'] = 'laws/group/$1';
+
 $route['tin-tuc'] = 'news/index/';
-$route['tin-tuc/(:any)'] = 'news/index/$1';
+$route['tin-tuc/(:any)'] = 'news/group/$1';
+
+$route['vi-tri/(:any)'] = 'property/location/$1';
+
+
 $route['bat-dong-san'] = 'property/index';
 
 if(file_exists(APPPATH.'config/my_routes.php')){

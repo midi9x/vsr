@@ -20,6 +20,8 @@
                         <?php echo render_select('type_category_id', $categories, ['category_id', 'category_name'], 'category'); ?>
                         <?php echo render_textarea('type_description','description'); ?>
                         <?php echo render_input('type_order','order',total_rows('property_types') + 1,'number'); ?>
+                        <?php echo render_input('type_seo_title', 'seo_title'); ?>
+                        <?php echo render_textarea('type_seo_description', 'seo_description'); ?>
                         <div class="disable-option">
                             <div class="checkbox checkbox-primary">
                                 <input type="checkbox" name="disabled" id="disabled">
@@ -44,7 +46,9 @@
 
     _validate_form($('#type_form'), {
         type_name: 'required',
-        type_category_id: 'required'
+        type_category_id: 'required',
+        type_seo_title: 'required',
+        type_seo_description: 'required'
     }, manage_types);
 
     $('#property_types_modal').on("hidden.bs.modal", function(event) {
@@ -82,6 +86,8 @@ function edit_type(invoker, id) {
     $('#property_types_modal textarea[name="type_description"]').val($(invoker).data('description'));
     $('#property_types_modal input[name="type_order"]').val($(invoker).data('order'));
     $('#property_types_modal select[name="type_category_id"]').selectpicker('val', $(invoker).data('category'));
+    $('#property_types_modal input[name="type_seo_title"]').val($(invoker).data('seo-title'));
+    $('#property_types_modal textarea[name="type_seo_description"]').val($(invoker).data('seo-description'));
     $('input[name="disabled"]').prop('checked', ($(invoker).data('active') == 0 ? true : false));
     $('#property_types_modal').modal('show');
     $('.add-title').addClass('hide');

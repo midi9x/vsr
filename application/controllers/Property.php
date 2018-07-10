@@ -12,10 +12,24 @@ class Property extends Clients_controller
 
     public function index($slug = '')
     {
-        echo '<pre>';print_r($this->property_model->get(false, $slug)); echo '</pre>';exit;
+        // echo '<pre>';print_r($this->property_model->get(false, $slug)); echo '</pre>';exit;
         $data['title']                 = _l('property');
         $this->view                    = 'property';
         $this->data                    = $data;
+        $this->layout();
+    }
+
+    public function location($location_slug='')
+    {
+        $locationData = $this->property_model->get(false, false, $location_slug);
+        if (!empty($locationData)) {
+            $data['title'] = $locationData[0]['location_name'];
+            $this->view = 'location';
+        } else {
+            $data['title']  = 'Lỗi 404 - Trang không tồn tại';
+            $this->view = '404';
+        }
+        $this->data = $data;
         $this->layout();
     }
 

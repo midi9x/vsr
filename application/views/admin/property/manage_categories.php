@@ -37,7 +37,7 @@
                                     </td>
                                     <td>
                                         <?php if(has_permission('property','','edit')){ ?>
-                                        <a href="#" onclick="edit_kb_group(this,<?php echo $category['category_id']; ?>); return false" data-name="<?php echo $category['category_name']; ?>" data-description="<?php echo clear_textarea_breaks($category['category_description']); ?>" data-order="<?php echo $category['category_order']; ?>" data-active="<?php echo $category['category_active']; ?>" data-slug="<?php echo $category['category_slug']; ?>" class="btn btn-default btn-icon"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a href="#" onclick="edit_kb_group(this,<?php echo $category['category_id']; ?>); return false" data-name="<?php echo $category['category_name']; ?>" data-description="<?php echo clear_textarea_breaks($category['category_description']); ?>" data-order="<?php echo $category['category_order']; ?>" data-active="<?php echo $category['category_active']; ?>" data-slug="<?php echo $category['category_slug']; ?>" data-seo-title="<?php echo $category['category_seo_title']; ?>" data-seo-description="<?php echo $category['category_seo_description']; ?>" class="btn btn-default btn-icon"><i class="fa fa-pencil-square-o"></i></a>
                                         <?php } ?>
                                         <?php if(has_permission('property','','delete')){ ?>
                                         <a href="<?php echo admin_url('property/delete_group/'.$category['category_id']); ?>" class="btn btn-danger btn-icon _delete"><i class="fa fa-remove"></i></a>

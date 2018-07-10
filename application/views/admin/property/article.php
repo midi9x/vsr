@@ -211,6 +211,9 @@
         }
         echo '</div></div>';
       ?>
+      <?php $value = (isset($article) ? $article->property_price : ''); ?>
+      <?php echo render_input('property_price','property_article_add_edit_price',$value,'number'); ?>
+
       <?php $value = (isset($article) ? $article->property_bedroom : ''); ?>
       <?php echo render_input('property_bedroom','property_bedroom',$value,'text'); ?>
 
