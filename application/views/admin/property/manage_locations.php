@@ -37,7 +37,7 @@
                                     </td>
                                     <td>
                                         <?php if(has_permission('property','','edit')){ ?>
-                                        <a href="#" onclick="edit_location(this,<?php echo $location['location_id']; ?>); return false" data-name="<?php echo $location['location_name']; ?>" data-description="<?php echo clear_textarea_breaks($location['location_description']); ?>" data-order="<?php echo $location['location_order']; ?>" data-active="<?php echo $location['location_active']; ?>" data-slug="<?php echo $location['location_slug']; ?>" class="btn btn-default btn-icon"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a href="#" onclick="edit_location(this,<?php echo $location['location_id']; ?>); return false" data-name="<?php echo $location['location_name']; ?>" data-description="<?php echo clear_textarea_breaks($location['location_description']); ?>" data-order="<?php echo $location['location_order']; ?>" data-active="<?php echo $location['location_active']; ?>" data-slug="<?php echo $location['location_slug']; ?>" data-seo-title="<?php echo $location['location_seo_title']; ?>" data-seo-description="<?php echo $location['location_seo_description']; ?>" class="btn btn-default btn-icon"><i class="fa fa-pencil-square-o"></i></a>
                                         <?php } ?>
                                         <?php if(has_permission('property','','delete')){ ?>
                                         <a href="<?php echo admin_url('property/delete_location/'.$location['location_id']); ?>" class="btn btn-danger btn-icon _delete"><i class="fa fa-remove"></i></a>

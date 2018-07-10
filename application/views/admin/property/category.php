@@ -18,7 +18,10 @@
                             <?php echo render_input('category_slug', 'slug'); ?>
                         </div>
                         <?php echo render_textarea('category_description','description'); ?>
+
                         <?php echo render_input('category_order','order',total_rows('property_categories') + 1,'number'); ?>
+                        <?php echo render_input('category_seo_title', 'seo_title'); ?>
+                        <?php echo render_textarea('category_seo_description', 'seo_description'); ?>
                         <div class="kb-group-disable-option">
                             <div class="checkbox checkbox-primary">
                                 <input type="checkbox" name="disabled" id="disabled">
@@ -43,7 +46,9 @@
 
     // Validating the knowledge group form
     _validate_form($('#category_form'), {
-        category_name: 'required'
+        category_name: 'required',
+        category_seo_title: 'required',
+        category_seo_description: 'required'
     }, manage_kb_groups);
 
     // On hidden modal reset the values
@@ -83,6 +88,8 @@ function edit_kb_group(invoker, id) {
     $('#property_categories_modal input[name="category_name"]').val($(invoker).data('name'));
     $('#property_categories_modal textarea[name="category_description"]').val($(invoker).data('description'));
     $('#property_categories_modal input[name="category_order"]').val($(invoker).data('order'));
+    $('#property_categories_modal input[name="category_seo_title"]').val($(invoker).data('seo-title'));
+    $('#property_categories_modal textarea[name="category_seo_description"]').val($(invoker).data('seo-description'));
     $('input[name="disabled"]').prop('checked', ($(invoker).data('active') == 0 ? true : false));
     $('#property_categories_modal').modal('show');
     $('.add-title').addClass('hide');

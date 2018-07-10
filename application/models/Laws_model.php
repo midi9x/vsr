@@ -14,7 +14,7 @@ class Laws_model extends CRM_Model
      * @param  string $slug if search by slug
      * @return mixed       if ID or slug passed return object else array
      */
-    public function get($id = '', $slug = '', $group_slug)
+    public function get($id = '', $slug = '', $group_slug = '')
     {
         $this->db->select('slug,articleid, articlegroup, subject,laws.description,laws.active as active_article, avatar, seo_title, seo_description, lawsgroups.active as active_group,name as group_name');
         $this->db->from('laws');
@@ -27,7 +27,7 @@ class Laws_model extends CRM_Model
             $this->db->where('slug', $slug);
         }
         if ($group_slug != '') {
-            $this->db->where('group_slug', $slug);
+            $this->db->where('group_slug', $group_slug);
         }
         if ($this->input->get('groupid')) {
             $this->db->where('articlegroup', $this->input->get('groupid'));

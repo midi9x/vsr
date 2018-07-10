@@ -39,7 +39,7 @@
                                     </td>
                                     <td>
                                         <?php if(has_permission('property','','edit')){ ?>
-                                        <a href="#" onclick="edit_type(this,<?php echo $type['type_id']; ?>); return false" data-name="<?php echo $type['type_name']; ?>" data-category="<?php echo $type['type_category_id']; ?>" data-description="<?php echo clear_textarea_breaks($type['type_description']); ?>" data-order="<?php echo $type['type_order']; ?>" data-active="<?php echo $type['type_active']; ?>" data-slug="<?php echo $type['type_slug']; ?>" class="btn btn-default btn-icon"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a href="#" onclick="edit_type(this,<?php echo $type['type_id']; ?>); return false" data-name="<?php echo $type['type_name']; ?>" data-category="<?php echo $type['type_category_id']; ?>" data-description="<?php echo clear_textarea_breaks($type['type_description']); ?>" data-order="<?php echo $type['type_order']; ?>" data-active="<?php echo $type['type_active']; ?>" data-slug="<?php echo $type['type_slug']; ?>" data-seo-title="<?php echo $type['type_seo_title']; ?>" data-seo-description="<?php echo $type['type_seo_description']; ?>" class="btn btn-default btn-icon"><i class="fa fa-pencil-square-o"></i></a>
                                         <?php } ?>
                                         <?php if(has_permission('property','','delete')){ ?>
                                         <a href="<?php echo admin_url('property/delete_type/'.$type['type_id']); ?>" class="btn btn-danger btn-icon _delete"><i class="fa fa-remove"></i></a>

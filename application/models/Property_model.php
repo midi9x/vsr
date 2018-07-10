@@ -14,7 +14,7 @@ class Property_model extends CRM_Model
      * @param  string $slug if search by slug
      * @return mixed       if ID or slug passed return object else array
      */
-    public function get($id = '', $slug = '')
+    public function get($id = '', $slug = '', $location_slug = '')
     {
         $this->db->select('property_id, property_name, property_avatar, property_content, property_category_id, property_type_id, property_location_id, property_status, property_price, property_bedroom, property_bathroom, property_acreage, property_facade, property_slug, property_seo_title, property_seo_description, property_created_at, property_active, property_order,property_stick, category_name, category_slug, category_description, category_active, category_order, location_name,location_description,location_slug,location_active,location_order, type_name,type_slug,type_description,type_active,type_order');
         $this->db->from('property');
@@ -24,6 +24,9 @@ class Property_model extends CRM_Model
         $this->db->order_by('property_order', 'asc');
         if (is_numeric($id)) {
             $this->db->where('property_id', $id);
+        }
+        if ($location_slug != '') {
+            $this->db->where('location_slug', $location_slug);
         }
         if ($slug != '') {
             $this->db->where('property_slug', $slug);
@@ -389,9 +392,9 @@ class Property_model extends CRM_Model
     /** Type **/
     public function get_type($id = '', $active = '')
     {
-        $this->db->select('category_id, category_name, category_slug, category_description, category_active, category_order, type_id, type_name,type_slug,type_category_id,type_description,type_active,type_order');
+        $this->db->select('property_types.*, category_name');
+        $this->db->join('property_categories', 'property_categories.category_id = property_types.type_category_id', 'inner');
         $this->db->from('property_types');
-        $this->db->join('property_categories', 'property_categories.category_id = property_types.type_category_id', 'left');
         if (is_numeric($active)) {
             $this->db->where('type_active', $active);
         }
@@ -489,7 +492,6 @@ class Property_model extends CRM_Model
     /** Location **/
     public function get_location($id = '', $active = '')
     {
-        $this->db->select('location_id, location_name,location_slug,location_description,location_active,location_order');
         $this->db->from('property_locations');
         if (is_numeric($active)) {
             $this->db->where('location_active', $active);
@@ -588,7 +590,6 @@ class Property_model extends CRM_Model
     /** Characteristic **/
     public function get_characteristic($id = '', $active = '')
     {
-        $this->db->select('characteristic_id, characteristic_name,characteristic_slug,characteristic_description,characteristic_active,characteristic_order');
         $this->db->from('property_characteristics');
         if (is_numeric($active)) {
             $this->db->where('characteristic_active', $active);
@@ -680,9 +681,7 @@ class Property_model extends CRM_Model
 
     public function get_contacts($id = '')
     {
-        $this->db->select('contact_id, contact_name, contact_phone, contact_email, contact_address, contact_message, contact_status, property_name, property_contacts.property_id as property_id');
         $this->db->from('property_contacts');
-        $this->db->join('property', 'property.property_id = property_contacts.property_id');
         if (is_numeric($id)) {
             $this->db->where('contact_id', $id);
 

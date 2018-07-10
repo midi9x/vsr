@@ -10,21 +10,34 @@ class Laws extends Clients_controller
         $this->load->model('laws_model');
     }
 
-    public function index($slug = '')
+    public function index()
     {
-        echo '<pre>';print_r($this->laws_model->get(false, $slug, false)); echo '</pre>';
+        $data['laws'] = $this->laws_model->get(false, false, false);
         $data['title']                 = _l('title_laws');
-        $this->view                    = 'law';
+        $this->view                    = 'laws';
         $this->data                    = $data;
         $this->layout();
     }
 
     public function group($slug = '')
     {
-        echo '<pre>';print_r($this->laws_model->get(false,false, $slug)); echo '</pre>';
-        $data['title']                 = _l('title_laws');
-        $this->view                    = 'law';
-        $this->data                    = $data;
+        $lawsDetail = $this->laws_model->get(false, $slug, false);
+        if (empty($lawsDetail)) {
+            $lawsGroup = $this->laws_model->get(false, false, $slug);
+            if (empty($lawsGroup)) {
+                $data['title']  = 'Lỗi 404 - Trang không tồn tại';
+                $this->view = '404';
+            } else {
+                $data['title']  = $lawsGroup[0]['group_name'];
+                $data['laws'] = $lawsGroup;
+                $this->view = 'laws';
+            }
+        } else {
+            $data['title'] = $lawsDetail->seo_title;
+            $data['law'] = $lawsDetail;
+            $this->view = 'law';
+        }
+        $this->data = $data;
         $this->layout();
     }
 }

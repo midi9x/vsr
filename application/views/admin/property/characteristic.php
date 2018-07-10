@@ -19,6 +19,8 @@
                         </div>
                         <?php echo render_textarea('characteristic_description','description'); ?>
                         <?php echo render_input('characteristic_order','order',total_rows('property_characteristics') + 1,'number'); ?>
+                        <?php echo render_input('characteristic_seo_title', 'seo_title'); ?>
+                        <?php echo render_textarea('characteristic_seo_description', 'seo_description'); ?>
                         <div class="disable-option">
                             <div class="checkbox checkbox-primary">
                                 <input type="checkbox" name="disabled" id="disabled">
@@ -42,7 +44,9 @@
     window.addEventListener('load',function(){
 
     _validate_form($('#characteristic_form'), {
-        characteristic_name: 'required'
+        characteristic_name: 'required',
+        characteristic_seo_title: 'required',
+        characteristic_seo_description: 'required'
     }, manage_characteristics);
 
     $('#property_characteristics_modal').on("hidden.bs.modal", function(event) {
@@ -78,6 +82,8 @@ function edit_characteristic(invoker, id) {
     $('#property_characteristics_modal input[name="characteristic_name"]').val($(invoker).data('name'));
     $('#property_characteristics_modal textarea[name="characteristic_description"]').val($(invoker).data('description'));
     $('#property_characteristics_modal input[name="characteristic_order"]').val($(invoker).data('order'));
+    $('#property_characteristics_modal input[name="characteristic_seo_title"]').val($(invoker).data('seo-title'));
+    $('#property_characteristics_modal textarea[name="characteristic_seo_description"]').val($(invoker).data('seo-description'));
     $('input[name="disabled"]').prop('checked', ($(invoker).data('active') == 0 ? true : false));
     $('#property_characteristics_modal').modal('show');
     $('.add-title').addClass('hide');

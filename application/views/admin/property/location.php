@@ -19,6 +19,8 @@
                         </div>
                         <?php echo render_textarea('location_description','description'); ?>
                         <?php echo render_input('location_order','order',total_rows('property_locations') + 1,'number'); ?>
+                        <?php echo render_input('location_seo_title', 'seo_title'); ?>
+                        <?php echo render_textarea('location_seo_description', 'seo_description'); ?>
                         <div class="disable-option">
                             <div class="checkbox checkbox-primary">
                                 <input type="checkbox" name="disabled" id="disabled">
@@ -42,7 +44,9 @@
     window.addEventListener('load',function(){
 
     _validate_form($('#location_form'), {
-        location_name: 'required'
+        location_name: 'required',
+        location_seo_title: 'required',
+        location_seo_description: 'required'
     }, manage_locations);
 
     $('#property_locations_modal').on("hidden.bs.modal", function(event) {
@@ -78,6 +82,8 @@ function edit_location(invoker, id) {
     $('#property_locations_modal input[name="location_name"]').val($(invoker).data('name'));
     $('#property_locations_modal textarea[name="location_description"]').val($(invoker).data('description'));
     $('#property_locations_modal input[name="location_order"]').val($(invoker).data('order'));
+    $('#property_locations_modal input[name="location_seo_title"]').val($(invoker).data('seo-title'));
+    $('#property_locations_modal textarea[name="location_seo_description"]').val($(invoker).data('seo-description'));
     $('input[name="disabled"]').prop('checked', ($(invoker).data('active') == 0 ? true : false));
     $('#property_locations_modal').modal('show');
     $('.add-title').addClass('hide');
