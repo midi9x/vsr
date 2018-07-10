@@ -238,3 +238,4 @@ ERROR - 2018-07-10 09:49:04 --> 404 Page Not Found: Assets/themes
 ERROR - 2018-07-10 09:49:05 --> 404 Page Not Found: Assets/themes
 ERROR - 2018-07-10 09:49:08 --> 404 Page Not Found: Assets/themes
 ERROR - 2018-07-10 09:49:08 --> 404 Page Not Found: Assets/themes
+ERROR - 2018-07-10 13:45:24 --> 404 Page Not Found: Faviconico/index
