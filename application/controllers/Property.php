@@ -8,26 +8,78 @@ class Property extends Clients_controller
     {
         parent::__construct();
         $this->load->model('property_model');
+        $this->load->helper("url");
+        $this->load->library("pagination");
     }
 
-    public function index($slug = '')
+    public function index()
     {
-        // echo '<pre>';print_r($this->property_model->get(false, $slug)); echo '</pre>';exit;
-        $data['title']                 = _l('property');
-        $this->view                    = 'property';
-        $this->data                    = $data;
+        $properties = $this->property_model->get();
+        if (empty($properties)) {
+            $data['title']  = 'Lỗi 404 - Trang không tồn tại';
+            $this->view = '404';
+        } else {
+            $config = array();
+            $config["base_url"] = site_url() . PROPERTY_SLUG;
+            $config["total_rows"] = count($properties);
+            $config["uri_segment"] = 3;
+            $this->pagination->initialize($config);
+            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+            $data["properties"] = $this->property_model->get(false, false, false, false, false, PER_PAGE, $page);
+            $data["links"] = $this->pagination->create_links();
+            $data['title']  = _l('title_property');
+            $data['description'] = '';
+            $data['avatar'] = $properties[0]['property_avatar'];
+            $data['url'] = site_url() . PROPERTY_SLUG;
+            $this->view = 'properties';
+        }
+        $this->data = $data;
         $this->layout();
     }
 
-    public function location($location_slug='')
+
+    public function location($slug = '')
     {
-        $locationData = $this->property_model->get(false, false, $location_slug);
-        if (!empty($locationData)) {
-            $data['title'] = $locationData[0]['location_name'];
-            $this->view = 'location';
-        } else {
+        $properties = $this->property_model->get(false, false, $slug);
+        if (empty($properties)) {
             $data['title']  = 'Lỗi 404 - Trang không tồn tại';
             $this->view = '404';
+        } else {
+            $config = array();
+            $config["base_url"] = site_url() . PROPERTY_LOCATION . $slug;
+            $config["total_rows"] = count($properties);
+            $config["uri_segment"] = 4;
+            $this->pagination->initialize($config);
+            $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+            $data["properties"] = $this->property_model->get(false, false, $slug, false, false, PER_PAGE, $page);
+            $data["links"] = $this->pagination->create_links();
+            $data['title']  = $properties[0]['location_seo_title'];
+            $data['description'] = $properties[0]['location_seo_description'];
+            $data['avatar'] = $properties[0]['property_avatar'];
+            $data['url'] = site_url() . PROPERTY_LOCATION . $slug;
+            $data['isLocation'] = true;
+            $this->view = 'properties';
+        }
+        $this->data = $data;
+        $this->layout();
+    }
+
+    public function detail($slug='')
+    {
+        $property = $this->property_model->get(false, $slug);
+        if (empty($property)) {
+            $data['title']  = 'Lỗi 404 - Trang không tồn tại';
+            $this->view = '404';
+        } else {
+            add_views_tracking('property', $property->property_id);
+            $data['title'] = $property->property_seo_title;
+            $data['description'] = $property->property_seo_description;
+            $data['avatar'] = $property->property_avatar;
+            $data['url'] = site_url() . PROPERTY_SLUG . $property->property_slug;
+            $data['property'] = $property;
+            $data['characteristics'] = $this->property_model->get_characteristic_by_property_id($property->property_id);
+            $data['images'] = $this->property_model->get_image_by_property_id($property->property_id);
+            $this->view = 'property';
         }
         $this->data = $data;
         $this->layout();

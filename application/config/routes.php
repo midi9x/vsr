@@ -118,18 +118,21 @@ $route['terms-and-conditions']  = "clients/terms_and_conditions";
 $route['privacy-policy']  = "clients/privacy_policy";
 
 $route['gioi-thieu'] = 'home/about';
-$route['lien-he'] = 'home/contact';
+$route[str_replace('/', '', LAWS_SLUG)] = 'laws/index';
+$route[LAWS_SLUG . 'page/(:num)'] = 'laws/index/$1';
+$route[LAWS_GROUP_SLUG . '(:any)'] = 'laws/group/$1';
+$route[LAWS_GROUP_SLUG . '(:any)/page/(:num)'] = 'laws/group/$1/$2';
+$route[LAWS_SLUG . '(:any)'] = 'laws/detail/$1';
 
-$route['luat-dac-khu'] = 'laws/index';
-$route['luat-dac-khu/(:any)'] = 'laws/group/$1';
+$route[PROPERTY_LOCATION . '(:any)'] = 'property/location/$1';
+$route[PROPERTY_LOCATION . '(:any)/page/(:num)'] = 'property/location/$1/$2';
+$route[str_replace('/', '', PROPERTY_SLUG)] = 'property/index';
+$route[PROPERTY_SLUG . 'page/(:num)'] = 'property/index/$1';
+$route[PROPERTY_SLUG . '(:any)'] = 'property/detail/$1';
 
 $route['tin-tuc'] = 'news/index/';
-$route['tin-tuc/(:any)'] = 'news/group/$1';
+$route['tin-tuc/(:any)'] = 'news/index/$1';
 
-$route['vi-tri/(:any)'] = 'property/location/$1';
-
-
-$route['bat-dong-san'] = 'property/index';
 
 if(file_exists(APPPATH.'config/my_routes.php')){
     include_once(APPPATH.'config/my_routes.php');

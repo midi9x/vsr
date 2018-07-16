@@ -14,9 +14,12 @@ class Laws_model extends CRM_Model
      * @param  string $slug if search by slug
      * @return mixed       if ID or slug passed return object else array
      */
-    public function get($id = '', $slug = '', $group_slug = '')
+    public function get($id = '', $slug = '', $group_slug = '', $q = '', $limit = '', $start = '')
     {
-        $this->db->select('slug,articleid, articlegroup, subject,laws.description,laws.active as active_article, avatar, seo_title, seo_description, lawsgroups.active as active_group,name as group_name');
+        if ($limit > 0 && $start >= 0) {
+            $this->db->limit($limit, $start);
+        }
+        $this->db->select('slug,articleid, articlegroup, subject,laws.description,laws.active as active_article, avatar, datecreated, seo_title, seo_description, lawsgroups.active as active_group,name as group_name, group_slug, group_seo_title, group_seo_description');
         $this->db->from('laws');
         $this->db->join('lawsgroups', 'lawsgroups.groupid = laws.articlegroup', 'left');
         $this->db->order_by('article_order', 'asc');
@@ -28,6 +31,10 @@ class Laws_model extends CRM_Model
         }
         if ($group_slug != '') {
             $this->db->where('group_slug', $group_slug);
+        }
+        if ($q != '') {
+            $this->db->like('subject', $q);
+            $this->db->or_like('laws.description', $q);
         }
         if ($this->input->get('groupid')) {
             $this->db->where('articlegroup', $this->input->get('groupid'));
