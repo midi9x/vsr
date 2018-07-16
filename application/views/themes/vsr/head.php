@@ -4,9 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="description" content="html 5 template">
-  <meta name="author" content="">
-  <title><?php if (isset($title)){ echo $title; } ?></title>
+  <title><?php if (isset($title)){ echo $title . ' - VSR'; } ?></title>
+  <?php if (isset($url)) { ?><link rel="canonical" href="<?=$url?>" /><?php } ?>
+
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:type" content="<?php if (isset($home)){ echo 'website'; } else {echo 'article';} ?>" />
+  <meta property="og:title" content="<?php if (isset($title)){ echo $title; } ?>" />
+  <?php if (isset($description)) { ?><meta property="og:description" content="<?=$description?>" /><?php } ?>
+
+  <?php if (isset($url)) { ?><meta property="og:url" content="<?=$url?>" /><?php } ?>
+
+  <?php if (isset($avatar)) { ?><meta property="og:image" content="<?=$avatar?>" /><?php } ?>
+
+  <meta property="og:site_name" content="VSR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <?php if (isset($url)) { ?><meta name="twitter:description" content="<?=$description?>" /><?php } ?>
+
+  <meta name="twitter:title" content="<?php if (isset($title)){ echo $title; } ?>" />
+  <?php if (isset($avatar)) { ?><meta name="twitter:image" content="<?=$avatar?>" /><?php } ?>
+
   <?php if(get_option('favicon') != ''){ ?>
   <link href="<?php echo base_url('uploads/company/'.get_option('favicon')); ?>" rel="shortcut icon">
   <?php } ?>
@@ -121,7 +137,7 @@
               </div>
               <div class="collapse" id="phu-quoc">
                 <div class="card card-block">
-                  <a class="dropdown-item" href="/luat-dac-khu/phu-quoc">Luật đặc khu</a>
+                  <a class="dropdown-item" href="/danh-muc-luat-dac-khu/phu-quoc">Luật đặc khu</a>
                   <a class="dropdown-item" href="/vi-tri/phu-quoc">Dự án</a>
                   <a class="dropdown-item" href="/tin-tuc/phu-quoc">Tin tức</a>
                 </div>
@@ -131,7 +147,7 @@
             <li class="dropdown hidden-md-down">
               <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Phú Quốc</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="/luat-dac-khu/phu-quoc">Luật đặc khu</a>
+                <a class="dropdown-item" href="/danh-muc-luat-dac-khu/phu-quoc">Luật đặc khu</a>
                 <a class="dropdown-item" href="/vi-tri/phu-quoc">Dự án</a>
                 <a class="dropdown-item" href="/tin-tuc/phu-quoc">Tin tức</a>
               </div>
@@ -144,7 +160,7 @@
               </div>
               <div class="collapse" id="van-don">
                 <div class="card card-block">
-                  <a class="dropdown-item" href="/luat-dac-khu/van-don">Luật đặc khu</a>
+                  <a class="dropdown-item" href="/danh-muc-luat-dac-khu/van-don">Luật đặc khu</a>
                   <a class="dropdown-item" href="/vi-tri/van-don">Dự án</a>
                   <a class="dropdown-item" href="/tin-tuc/van-don">Tin tức</a>
                 </div>
@@ -154,7 +170,7 @@
             <li class="dropdown hidden-md-down">
               <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Vân đồn</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="/luat-dac-khu/van-don">Luật đặc khu</a>
+                <a class="dropdown-item" href="/danh-muc-luat-dac-khu/van-don">Luật đặc khu</a>
                 <a class="dropdown-item" href="/vi-tri/van-don">Dự án</a>
                 <a class="dropdown-item" href="/tin-tuc/van-don">Tin tức</a>
               </div>
@@ -166,7 +182,7 @@
               </div>
               <div class="collapse" id="bac-van-phong">
                 <div class="card card-block">
-                  <a class="dropdown-item" href="/luat-dac-khu/bac-van-phong">Luật đặc khu</a>
+                  <a class="dropdown-item" href="/danh-muc-luat-dac-khu/bac-van-phong">Luật đặc khu</a>
                   <a class="dropdown-item" href="/vi-tri/bac-van-phong">Dự án</a>
                   <a class="dropdown-item" href="/tin-tuc/bac-van-phong">Tin tức</a>
                 </div>
@@ -176,7 +192,7 @@
             <li class="dropdown hidden-md-down">
               <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Bắc Vân Phong</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="/luat-dac-khu/bac-van-phong">Luật đặc khu</a>
+                <a class="dropdown-item" href="/danh-muc-luat-dac-khu/bac-van-phong">Luật đặc khu</a>
                 <a class="dropdown-item" href="/vi-tri/bac-van-phong">Dự án</a>
                 <a class="dropdown-item" href="/tin-tuc/bac-van-phong">Tin tức</a>
               </div>

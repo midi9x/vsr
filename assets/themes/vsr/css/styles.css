@@ -1669,7 +1669,7 @@ section.portfolio {
 
 .portfolio .homes-tag.sale {
   background: #e54242 !important;
-  width: 84px !important;
+  min-width: 84px !important;
   height: 31px; }
 
 .portfolio .homes-tag.sale {
@@ -1746,6 +1746,7 @@ section.portfolio {
   text-transform: uppercase;
   text-decoration: none; }
 
+.portfolio .homes-content h3 a,
 .portfolio .homes-content h3 {
   font-size: 1.2rem;
   font-weight: 600;
@@ -3706,11 +3707,11 @@ html input[disabled] {
 .inner-pages .properties-list.full .project-single {
   border-bottom: 0px; }
 
-.inner-pages .properties-list.full .my-44 {
-  margin: 2.5rem 0; }
+.inner-pages .properties-list.full .my-22 {
+  margin: 1.2rem 0; }
 
 @media screen and (max-width: 991px) {
-  .inner-pages .properties-list.full .my-44.ft {
+  .inner-pages .properties-list.full .my-22.ft {
     margin: 0px; }
 
   .inner-pages .properties-list.full .pr-0 {
@@ -3741,11 +3742,11 @@ html input[disabled] {
 .inner-pages .properties-right.list .project-single {
   border-bottom: 0px; }
 
-.inner-pages .properties-right.list .my-44 {
-  margin: 2.5rem 0; }
+.inner-pages .properties-right.list .my-22 {
+  margin: 1.2rem 0; }
 
 @media screen and (max-width: 991px) {
-  .inner-pages .properties-right.list .my-44.ft {
+  .inner-pages .properties-right.list .my-22.ft {
     margin: 0px; }
 
   .inner-pages .properties-right.list .homes-img img {

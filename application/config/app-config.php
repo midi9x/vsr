@@ -69,4 +69,11 @@ define('APP_CSRF_PROTECTION',true);
 
 define('NEWS_SLUG', 'tin-tuc/');
 define('LAWS_SLUG', 'luat-dac-khu/');
+define('LAWS_GROUP_SLUG', 'danh-muc-luat-dac-khu/');
 define('PROPERTY_SLUG', 'bat-dong-san/');
+define('PER_PAGE', 1);
+
+define('PROPERTY_LOCATION', 'vi-tri/');
+define('PROPERTY_CATEGORY', 'danh-muc/');
+define('PROPERTY_TYPE', 'the-loai/');
+define('SEARCH_SLUG', 'tim-kiem/');

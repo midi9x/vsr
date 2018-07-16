@@ -14,9 +14,12 @@ class Property_model extends CRM_Model
      * @param  string $slug if search by slug
      * @return mixed       if ID or slug passed return object else array
      */
-    public function get($id = '', $slug = '', $location_slug = '')
+    public function get($id = '', $slug = '', $location_slug = '',$category_slug = '',$type_slug = '', $limit = '', $start = '')
     {
-        $this->db->select('property_id, property_name, property_avatar, property_content, property_category_id, property_type_id, property_location_id, property_status, property_price, property_bedroom, property_bathroom, property_acreage, property_facade, property_slug, property_seo_title, property_seo_description, property_created_at, property_active, property_order,property_stick, category_name, category_slug, category_description, category_active, category_order, location_name,location_description,location_slug,location_active,location_order, type_name,type_slug,type_description,type_active,type_order');
+        if ($limit > 0 && $start >= 0) {
+            $this->db->limit($limit, $start);
+        }
+        $this->db->select('property_id, property_name, property_avatar, property_content, property_category_id, property_type_id, property_location_id, property_status, property_price, property_bedroom, property_bathroom, property_acreage, property_facade, property_slug, property_seo_title, property_seo_description, property_created_at, property_active, property_order,property_stick, category_name, category_slug, category_description, category_active, category_order, location_name,location_description,location_slug,location_active,location_order, type_name,type_slug,type_description,type_active,type_order, location_seo_title, location_seo_description');
         $this->db->from('property');
         $this->db->join('property_categories', 'property_categories.category_id = property.property_category_id', 'left');
         $this->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');
@@ -27,6 +30,12 @@ class Property_model extends CRM_Model
         }
         if ($location_slug != '') {
             $this->db->where('location_slug', $location_slug);
+        }
+        if ($category_slug != '') {
+            $this->db->where('category_slug', $category_slug);
+        }
+        if ($type_slug != '') {
+            $this->db->where('type_slug', $type_slug);
         }
         if ($slug != '') {
             $this->db->where('property_slug', $slug);
@@ -717,5 +726,24 @@ class Property_model extends CRM_Model
         }
 
         return false;
+    }
+
+    public function get_characteristic_by_property_id($property_id = '')
+    {
+        $this->db->from('property_characteristic_metas');
+        $this->db->join('property_characteristics', 'property_characteristics.characteristic_id = property_characteristic_metas.characteristic_id', 'inner');
+        $this->db->where('property_id', $property_id);
+        $this->db->order_by('characteristic_order', 'asc');
+
+        return $this->db->get()->result_array();
+    }
+
+    public function get_image_by_property_id($property_id = '')
+    {
+        $this->db->from('property_images');
+        $this->db->where('property_id', $property_id);
+        $this->db->order_by('id', 'asc');
+
+        return $this->db->get()->result_array();
     }
 }
