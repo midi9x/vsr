@@ -236,6 +236,10 @@
          <?php echo _l('setting_bar_heading'); ?></a>
          <?php } ?>
       </li>
+      <li>
+         <a href="<?=admin_url()?>supports"><i class="fa fa-support menu-icon"></i>
+         <?php echo _l('supports'); ?></a>
+      </li>
       <?php do_action('after_render_aside_menu'); ?>
       <?php
          $pinnedProjects = get_user_pinned_projects();

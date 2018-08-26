@@ -9,13 +9,18 @@ class Property extends Admin_controller
         $this->load->model('property_model');
     }
 
-    public function index()
+    public function index($type = '')
     {
+        if (!$type) redirect(admin_url('property/index/1'));
         if (!has_permission('property', '', 'view')) {
             access_denied('property');
         }
         if ($this->input->is_ajax_request()) {
-            $this->app->get_table_data('property');
+            if ($type == ''):
+                $this->app->get_table_data('property');
+            else:
+                $this->app->get_table_data('property_' . $type);
+            endif;
         }
         $data['categories']    = $this->property_model->get_cat();
         $data['bodyclass'] = 'top-tabs kan-ban-body';
@@ -31,6 +36,10 @@ class Property extends Admin_controller
         if ($this->input->post()) {
             $data                = $this->input->post();
             $data['property_content'] = $this->input->post('property_content', false);
+            $data['vitri_google'] = $this->input->post('vitri_google', false);
+            $data['property_matbang'] = $this->input->post('property_matbang', false);
+            $data['property_canhonen'] = $this->input->post('property_canhonen', false);
+            $data['property_tienich'] = $this->input->post('property_tienich', false);
             if ($id == '') {
                 if (!has_permission('property', '', 'create')) {
                     access_denied('property');
@@ -451,7 +460,7 @@ class Property extends Admin_controller
                 $data  = $this->input->post();
                 $data['message'] = $this->input->post('message', false);
                 $customer_groups = $this->client_groups_model->get_customer_by_groups($data['groups']);
-                
+
                 echo json_encode(['customers' => $customer_groups]);
             }
         }
@@ -584,5 +593,85 @@ class Property extends Admin_controller
             set_alert('warning', _l('problem_deleting'));
         }
         redirect(admin_url('property/manage_contacts'));
+    }
+
+    /**
+     * town
+     *
+    **/
+    public function manage_towns()
+    {
+        if (!has_permission('property', '', 'view')) {
+            access_denied('property');
+        }
+        $data['towns'] = $this->property_model->get_town();
+        $data['locations'] = $this->property_model->get_location();
+        $data['title']  = _l('als_kb_towns');
+        $this->load->view('admin/property/manage_towns', $data);
+    }
+
+    public function town($id = '')
+    {
+        if (!has_permission('property', '', 'view')) {
+            access_denied('property');
+        }
+        if ($this->input->post()) {
+            $post_data        = $this->input->post();
+            if (!$this->input->post('id')) {
+                if (!has_permission('property', '', 'create')) {
+                    access_denied('property');
+                }
+                $id = $this->property_model->add_town($post_data);
+                if ($id) {
+                    set_alert('success', _l('added_successfully'));
+                } else {
+                    echo json_encode([
+                        'id'      => $id,
+                        'success' => $id ? true : false,
+                        'name'    => $post_data['town_name'],
+                    ]);
+                }
+            } else {
+                if (!has_permission('property', '', 'edit')) {
+                    access_denied('property');
+                }
+
+                $id = $post_data['id'];
+                unset($post_data['id']);
+                $success = $this->property_model->update_town($post_data, $id);
+                if ($success) {
+                    set_alert('success', _l('updated_successfully'));
+                }
+            }
+            die;
+        }
+    }
+
+    public function change_town_status($id, $status)
+    {
+        if (has_permission('property', '', 'edit')) {
+            if ($this->input->is_ajax_request()) {
+                $this->property_model->change_town_status($id, $status);
+            }
+        }
+    }
+
+    public function delete_town($id)
+    {
+        if (!has_permission('property', '', 'delete')) {
+            access_denied('property');
+        }
+        if (!$id) {
+            redirect(admin_url('property/manage_towns'));
+        }
+        $response = $this->property_model->delete_town($id);
+        if (is_array($response) && isset($response['referenced'])) {
+            set_alert('danger', _l('is_referenced', _l('als_kb_towns')));
+        } elseif ($response == true) {
+            set_alert('success', _l('deleted'));
+        } else {
+            set_alert('warning', _l('problem_deleting'));
+        }
+        redirect(admin_url('property/manage_towns'));
     }
 }

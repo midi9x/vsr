@@ -27,6 +27,12 @@ $hook['pre_system'] = array(
         'filepath' => 'hooks',
         'params'   => array()
 );
+$hook['display_override'][] = array(
+    'class' => '',
+    'function' => 'compress',
+    'filename' => 'compress.php',
+    'filepath' => 'hooks'
+);
 
 if (file_exists(APPPATH.'config/my_hooks.php')) {
     include_once(APPPATH.'config/my_hooks.php');

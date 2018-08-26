@@ -96,7 +96,7 @@ $route['survey/(:num)/(:any)']  = "survey/index/$1/$2";
 
 // Deprecated
 //$route['knowledge_base']  = "knowledge_base/index";
-$route[PROPERTY_SLUG.'(:any)']  = "property/index/$1";
+// $route[PROPERTY_SLUG.'(:any)']  = "property/index/$1";
 
 // Available from version 2.0
 $route['knowledge-base']  = "knowledge_base/index";
@@ -117,23 +117,81 @@ if(strpos($_SERVER['REQUEST_URI'],'add_kb_answer') === false) {
 $route['terms-and-conditions']  = "clients/terms_and_conditions";
 $route['privacy-policy']  = "clients/privacy_policy";
 
-$route['gioi-thieu'] = 'home/about';
-$route[str_replace('/', '', LAWS_SLUG)] = 'laws/index';
-$route[LAWS_SLUG . 'page/(:num)'] = 'laws/index/$1';
-$route[LAWS_GROUP_SLUG . '(:any)'] = 'laws/group/$1';
-$route[LAWS_GROUP_SLUG . '(:any)/page/(:num)'] = 'laws/group/$1/$2';
-$route[LAWS_SLUG . '(:any)'] = 'laws/detail/$1';
-
 $route[PROPERTY_LOCATION . '(:any)'] = 'property/location/$1';
 $route[PROPERTY_LOCATION . '(:any)/page/(:num)'] = 'property/location/$1/$2';
+
+$route[PROPERTY_CATEGORY . '(:any)'] = 'property/category/$1';
+$route[PROPERTY_CATEGORY . '(:any)/page/(:num)'] = 'property/category/$1/$2';
+
+$route[PROPERTY_TYPE . '(:any)'] = 'property/type/$1';
+$route[PROPERTY_TYPE . '(:any)/page/(:num)'] = 'property/type/$1/$2';
+
 $route[str_replace('/', '', PROPERTY_SLUG)] = 'property/index';
 $route[PROPERTY_SLUG . 'page/(:num)'] = 'property/index/$1';
 $route[PROPERTY_SLUG . '(:any)'] = 'property/detail/$1';
 
-$route['tin-tuc'] = 'news/index/';
-$route['tin-tuc/(:any)'] = 'news/index/$1';
+$route[SEARCH_SLUG . str_replace('/', '', PROPERTY_SLUG)] = 'property/search';
+$route[SEARCH_SLUG . PROPERTY_SLUG . 'page/(:num)'] = 'property/search/$1';
+
+$route['lien-he-bat-dong-san'] = 'property/add_contact';
 
 
-if(file_exists(APPPATH.'config/my_routes.php')){
-    include_once(APPPATH.'config/my_routes.php');
-}
+$route[str_replace('/', '', NEWS_SLUG)] = 'news/index';
+$route[NEWS_SLUG . 'page/(:num)'] = 'news/index/$1';
+$route[NEWS_GROUP_SLUG . '(:any)'] = 'news/group/$1';
+$route[NEWS_GROUP_SLUG . '(:any)/page/(:num)'] = 'news/group/$1/$2';
+
+$route[NEWS_LOCATION_SLUG . '(:any)'] = 'news/location/$1';
+$route[NEWS_LOCATION_SLUG . '(:any)/page/(:num)'] = 'news/location/$1/$2';
+
+$route[NEWS_SLUG . '(:any)'] = 'news/detail/$1';
+
+
+
+$route[SEARCH_SLUG . str_replace('/', '', NEWS_SLUG)] = 'news/search';
+$route[SEARCH_SLUG . NEWS_SLUG . 'page/(:num)'] = 'news/search/$1';
+
+
+// new
+$route[str_replace('/', '', PRODUCT_SLUG)] = 'property/get_product';
+$route[str_replace('/', '', PROJECT_SLUG)] = 'property/get_project';
+$route[PRODUCT_SLUG . 'page/(:num)'] = 'property/get_product';
+$route[PROJECT_SLUG . 'page/(:num)'] = 'property/get_project';
+
+
+
+
+$route[PRODUCT_SLUG . '(:any)'] = 'property/product_detail/$1';
+$route[PROJECT_SLUG . '(:any)'] = 'property/project_detail/$1';
+
+$route[str_replace('/', '', ADVICES_SLUG)] = 'advices/index';
+$route[ADVICES_SLUG . 'page/(:num)'] = 'advices/index/$1';
+$route[ADVICES_GROUP_SLUG . '(:any)'] = 'advices/group/$1';
+$route[ADVICES_GROUP_SLUG . '(:any)/page/(:num)'] = 'advices/group/$1/$2';
+$route[ADVICES_LOCATION_SLUG . '(:any)'] = 'advices/location/$1';
+$route[ADVICES_LOCATION_SLUG . '(:any)/page/(:num)'] = 'advices/location/$1/$2';
+$route[ADVICES_SLUG . '(:any)'] = 'advices/detail/$1';
+
+
+$route[str_replace('/', '', MREPORTS_SLUG)] = 'mreports/index';
+$route[MREPORTS_SLUG . 'page/(:num)'] = 'mreports/index/$1';
+$route[MREPORTS_GROUP_SLUG . '(:any)'] = 'mreports/group/$1';
+$route[MREPORTS_GROUP_SLUG . '(:any)/page/(:num)'] = 'mreports/group/$1/$2';
+$route[MREPORTS_LOCATION_SLUG . '(:any)'] = 'mreports/location/$1';
+$route[MREPORTS_LOCATION_SLUG . '(:any)/page/(:num)'] = 'mreports/location/$1/$2';
+$route[MREPORTS_SLUG . '(:any)'] = 'mreports/detail/$1';
+
+
+
+$route[str_replace('/', '', PHU_QUOC_SLUG)] = 'home/phuquoc';
+$route[str_replace('/', '', VAN_DON_SLUG)] = 'home/vandon';
+$route[str_replace('/', '', BAC_VAN_PHONG_SLUG)] = 'home/bacvanphong';
+
+$route['add_contact'] = 'home/add_contact';
+
+$route[str_replace('/', '', SEARCH_SLUG)] = 'home/search';
+
+// $route['gioi-thieu'] = 'home/about';
+$route['lien-he'] = 'home/contact';
+
+$route['(:any)'] = 'pages/detail/$1';

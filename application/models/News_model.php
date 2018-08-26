@@ -14,12 +14,16 @@ class News_model extends CRM_Model
      * @param  string $slug if search by slug
      * @return mixed       if ID or slug passed return object else array
      */
-    public function get($id = '', $slug = '', $group_slug = '')
+    public function get($id = '', $slug = '', $group_slug = '', $q = '', $limit = '', $start = '', $location = '')
     {
-        $this->db->select('slug,articleid, articlegroup, subject,news.description,news.active as active_article, avatar, seo_title, seo_description, newsgroups.active as active_group,name as group_name');
+        $this->db->select('slug,articleid, articlegroup, subject,news.description,news.active as active_article, avatar, datecreated, seo_title, seo_description, newsgroups.active as active_group,name as group_name, group_slug, group_seo_title, group_seo_description, location_name,location_slug,news.location_id as location_id, author');
         $this->db->from('news');
         $this->db->join('newsgroups', 'newsgroups.groupid = news.articlegroup', 'left');
-        $this->db->order_by('article_order', 'asc');
+        $this->db->join('property_locations', 'news.location_id = property_locations.location_id', 'left');
+        if ($this->router->directory  != 'admin/') {
+            $this->db->where('news.active', 1);
+            $this->db->where('newsgroups.active', 1);
+        }
         if (is_numeric($id)) {
             $this->db->where('articleid', $id);
         }
@@ -29,13 +33,27 @@ class News_model extends CRM_Model
         if ($group_slug != '') {
             $this->db->where('group_slug', $group_slug);
         }
+        if ($location != '') {
+            if (is_numeric($location)) {
+                $this->db->where('news.location_id', $location);
+            } else {
+                $this->db->where('location_slug', $location);
+            }
+        }
+        if ($q != '') {
+            $this->db->like('subject', $q);
+            $this->db->or_like('news.description', $q);
+        }
         if ($this->input->get('groupid')) {
             $this->db->where('articlegroup', $this->input->get('groupid'));
+        }
+        if ($limit > 0 && $start >= 0) {
+            $this->db->limit($limit, $start);
         }
         if (is_numeric($id) || $slug != '') {
             return $this->db->get()->row();
         }
-
+        $this->db->order_by('articleid', 'desc');
         return $this->db->get()->result_array();
     }
 
@@ -46,19 +64,21 @@ class News_model extends CRM_Model
      */
     public function get_related_articles($current_id, $customers = true)
     {
-        $total_related_articles = 5;
-        $total_related_articles = do_action('total_related_articles', $total_related_articles);
+        $total_related_articles = 3;
 
         $this->db->select('articlegroup');
         $this->db->where('articleid', $current_id);
         $article = $this->db->get('news')->row();
 
+        $this->db->select('slug,articleid, articlegroup, subject,news.description,news.active as active_article, avatar, datecreated, seo_title, seo_description, newsgroups.active as active_group,name as group_name, group_slug');
+        $this->db->from('news');
+        $this->db->join('newsgroups', 'newsgroups.groupid = news.articlegroup', 'left');
         $this->db->where('articlegroup', $article->articlegroup);
         $this->db->where('articleid !=', $current_id);
-        $this->db->where('active', 1);
+        $this->db->where('news.active', 1);
         $this->db->limit($total_related_articles);
-
-        return $this->db->get('news')->result_array();
+        $this->db->order_by('articleid', 'desc');
+        return $this->db->get()->result_array();
     }
 
     /**
@@ -75,6 +95,7 @@ class News_model extends CRM_Model
         }
         $data['datecreated'] = date('Y-m-d H:i:s');
         $data['slug']        = slug_it($data['subject']);
+        $data['author'] = get_staff_full_name(get_staff_user_id());
         $this->db->like('slug', $data['slug']);
         $slug_total = $this->db->count_all_results('news');
         if ($slug_total > 0) {
@@ -106,6 +127,7 @@ class News_model extends CRM_Model
         } else {
             $data['active'] = 1;
         }
+        $data['author'] = get_staff_full_name(get_staff_user_id());
         $this->db->where('articleid', $id);
         $this->db->update('news', $data);
         if ($this->db->affected_rows() > 0) {
@@ -172,7 +194,7 @@ class News_model extends CRM_Model
         $this->db->where('articleid', $id);
         $this->db->delete('news');
         if ($this->db->affected_rows() > 0) {
-        
+
             // $this->db->where('rel_type', 'news_article');
             // $this->db->where('rel_id', $id);
             // $this->db->delete('tblviewstracking');

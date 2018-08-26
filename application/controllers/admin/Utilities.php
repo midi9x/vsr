@@ -524,6 +524,46 @@ class Utilities extends Admin_controller
         update_option('theme_style', $data);
     }
 
+    public function web_menu()
+    {
+        if (!is_admin()) {
+            access_denied('Edit Web Menu');
+        }
+        $data['permissions']   = $this->roles_model->get_permissions();
+        $data['permissions'][] = [
+            'shortname' => 'is_admin',
+            'name'      => 'Admin',
+        ];
+        $data['permissions'][] = [
+            'shortname' => 'is_not_staff',
+            'name'      => _l('is_not_staff_member'),
+        ];
+
+        $data['title'] = _l('web_menu');
+        $this->load->view('admin/utilities/web_menu', $data);
+    }
+
+    public function update_web_menu()
+    {
+        if (!is_admin()) {
+            access_denied('Edit Web Menu');
+        }
+        $data_inactive = $this->input->post('inactive');
+        if ($data_inactive == null) {
+            $data_inactive = [];
+        }
+        $data_active = $this->input->post('active');
+        if ($data_active == null) {
+            $data_active = [];
+        }
+        update_option('web_menu_active', json_encode([
+            'web_menu_active' => $data_active,
+        ]));
+        update_option('web_menu_inactive', json_encode([
+            'web_menu_inactive' => $data_inactive,
+        ]));
+    }
+
     public function main_menu()
     {
         if (!is_admin()) {

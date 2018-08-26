@@ -260,7 +260,7 @@ class Roles_model extends CRM_Model
 
             return $this->db->get('tblpermissions')->row();
         }
-        $this->db->order_by('name', 'asc');
+        $this->db->order_by('permissionid', 'asc');
 
         return $this->db->get('tblpermissions')->result_array();
     }

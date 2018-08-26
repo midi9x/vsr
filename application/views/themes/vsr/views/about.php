@@ -1,221 +1,114 @@
-<section class="headings">
-	<div class="text-heading text-center">
-		<div class="container">
-			<h1>GIỚI THIỆU VỀ VSR</h1>
-			<h2><a href="index.html">TRANG CHỦ </a> &nbsp;/&nbsp; GIỚI THIỆU VỀ VSR</h2>
-		</div>
-	</div>
-</section>
-<!-- END SECTION HEADINGS -->
-
-<!-- START SECTION ABOUT -->
-<section class="about-us">
+<section id="main-content">
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 col-md-12 who-1">
-				<div>
-					<h2 class="text-left mb-4">Giới thiệu <span>VSR</span></h2>
-				</div>
-				<div class="pftext">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum odio id voluptatibus incidunt cum? Atque quasi eum debitis optio ab. Esse itaque officiis tempora possimus odio rerum aperiam ratione, sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit sunt.</p>
+		<div class="row content">
+			<div class="col-md-12">
+				<h3 class="title float-left">Giới thiệu</h3>
+				<a class="d-block d-md-inline ml-md-5 clear-sm-about" href="#trietly">Triết lý kinh doanh</a>
+				<a class="d-block d-md-inline ml-md-5 clear-sm-about" href="#hoachdinh">Hoạch định - Sứ mệnh</a>
+				<a class="d-block d-md-inline ml-md-5 clear-sm-about" href="#giatri">Giá trị cốt lõi</a>
+				<a class="d-block d-md-inline ml-md-5 clear-sm-about" href="#linhvuc">Lĩnh vực hoạt động</a>
+				<a class="d-block d-md-inline ml-md-5 clear-sm-about" href="#nangluc">Năng lực hoạt động</a>
+			</div>
+			<div class="page-content">
+				<div class="row mx-0 align-items-center">
+					<div class="col-md-12 mt-3">
+						<h4 class="title" id="trietly">Triết lý kinh doanh <span class="arrow-right "></span></h4>
+					</div>
+					<div class="col-md-9 mb-3">
+						<div class="content">
+							Thị trường Bất động sản có vai trò đặc biệt quan trọng trong nền kinh tế vì nó liên quan trực tiếp tới lượng tài sản có giá trị rất lớn của mọi nền kinh tế quốc dân, của mọi quốc gia trên khắp Thế giới.<br><br>
 
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum odio id voluptatibus incidunt cum? Atque quasi eum debitis optio ab. Esse itaque officiis tempora possimus odio rerum aperiam ratione, sunt. Lorem ipsum dolor sit amet, consectetur adipisicing elit sunt.</p>
-				</div>
-				<div class="box bg-2">
-					<img src="<?php echo base_url('assets/themes/' . active_clients_theme());?>/images/signature.png" alt="">
-				</div>
-			</div>
-			<div class="col-lg-6 col-md-12 who">
-				<div class="wprt-image-video w50">
-					<img alt="image" src="<?php echo base_url('assets/themes/' . active_clients_theme());?>/images/projects/welcome.jpg">
-					<a class="icon-wrap popup-video popup-youtube" href="https://www.youtube.com/watch?v=2xHQqYRcrx4"></a>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- END SECTION ABOUT -->
+							Công ty Cổ phần Địa ốc 19 là Công ty chuyên Kinh doanh các Dịch vụ Bất động sản. Chúng tôi hoạt động chuyên sâu trong các lĩnh vực dịch vụ bất động sản  –  tự hào là một trong những đơn vị cung cấp dịch vụ hàng đầu Việt nam, góp phần vào việc phát triển và ổn định thị trường quan trọng này.<br>
 
-<!-- START SECTION SERVICES -->
-<main class="services-2">
-	<div class="container">
-		<div class="section-title">
-			<h3>VSR.VN</h3>
-			<h2>Dịch vụ của chúng tôi</h2>
-		</div>
-		<div class="row service-1">
-			<article class="col-md-4 serv">
-				<div class="art-1 img-1">
-					<img src="<?php echo base_url('assets/themes/' . active_clients_theme());?>/images/1.png" width="52" alt="">
-					<h3>Buy Property</h3>
-					<p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-				</div>
-			</article>
-			<article class="col-md-4 serv">
-				<div class="art-1 img-2">
-					<img src="<?php echo base_url('assets/themes/' . active_clients_theme());?>/images/2.png" width="52" alt="">
-					<h3>Rent Property</h3>
-					<p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-				</div>
-			</article>
-			<article class="col-md-4 serv">
-				<div class="art-1 img-3">
-					<img src="<?php echo base_url('assets/themes/' . active_clients_theme());?>/images/3.png" width="52" alt="">
-					<h3>Real Estate Kit</h3>
-					<p>lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-				</div>
-			</article>
-		</div>
-	</div>
-</main>
-<!-- END SECTION SERVICES -->
+							Để  Công ty Cổ phần Địa ốc 19 được vững mạnh và phát triển như hiện nay ngoài sự nỗ lực, chuyên tâm, cần mẫm và đoàn kết của cán bộ, nhân viên Công ty chúng tôi là sự tín nhiệm, yêu thương , ủng hộ đầy nhiệt thành của Quý vị. Tất cả những tin yêu đó hợp thành sức mạnh để có Địa ốc 19 của ngày hôm nay.<br><br>
 
-<!-- START SECTION COUNTER UP -->
-<section class="counterup">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3 col-md-6 col-xs-12">
-				<div class="countr">
-					<i class="fa fa-home" aria-hidden="true"></i>
-					<div class="count-me">
-						<p class="counter text-left">300</p>
-						<h3>Dự Án</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 col-xs-12">
-				<div class="countr">
-					<i class="fa fa-list" aria-hidden="true"></i>
-					<div class="count-me">
-						<p class="counter text-left">400</p>
-						<h3>Dự Án Mỗi Ngày</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 col-xs-12">
-				<div class="countr mb-0">
-					<i class="fa fa-users" aria-hidden="true"></i>
-					<div class="count-me">
-						<p class="counter text-left">250</p>
-						<h3>Chuyên Gia</h3>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 col-xs-12">
-				<div class="countr mb-0 last">
-					<i class="fa fa-trophy" aria-hidden="true"></i>
-					<div class="count-me">
-						<p class="counter text-left">200</p>
-						<h3>Giải Thưởng</h3>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- END SECTION COUNTER UP -->
+							Để xứng đáng với những tình cảm lớn lao đó, Chúng tôi_  tập thể cán bộ Công ty Cổ phần Địa ốc 19 luôn truyền tải đến toàn thể anh chị em nhân viên đang làm việc tại Công ty cùng chung duy nhất một tâm niệm là lấy chữ tín làm kim chỉ nam xuyên suốt trong hoạt động kinh doanh của mình.<br><br>
 
-<!-- START SECTION AGENTS -->
-<section class="team">
-	<div class="container">
-		<div class="section-title col-md-5">
-			<h3>VSR</h3>
-			<h2>Các chuyên gia</h2>
-		</div>
-		<div class="row team-all">
-			<div class="col-lg-3 col-md-6 team-pro hover-effect">
-				<div class="team-wrap">
-					<div class="team-img">
-						<img src="<?php echo base_url('assets/themes/' . active_clients_theme());?>/images/team/t-5.jpg" alt="" />
+							Triết lý kinh doanh của chúng tôi là:<br>
+
+							” Áp dụng, thích nghi, cải tiến “<br><br>
+
+							Với mong muốn mang đến cho tất cả những bàn bè đối tác, những khách hàng một tài sản đích thực, một giá trị sống đích thực, một niềm tin đích thực _ Công ty Cổ phần Địa ốc 19 đã, đang và sẽ mãi mãi là người bạn thân thiết của quý đối tác, quý khách hàng và mọi gia đình. Dù  Quý vị mới tìm hiểu, mới biết đến hay đã thân thiết với Chúng tôi thì đó là một NHÂN DUYÊN. Bằng tất cả mọi tâm sức, mọi khả năng và đạo đức nghề nghiệp, Chúng tôi nguyện trong mọi điều kiện hoàn cảnh luôn đáp ứng tất cả những nhu cầu, mong muốn của Quý vị.
+						</div>
 					</div>
-					<div class="team-content">
-						<div class="team-info">
-							<h3>Carls Jhons</h3>
-							<p>Financial Advisor</p>
-							<div class="team-socials">
-								<ul>
-									<li>
-										<a href="#" title="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-										<a href="#" title="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-										<a href="#" title="instagran"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-									</li>
-								</ul>
-							</div>
-							<span><a href="team-details.html">View Profile</a></span>
+					<div class="col-md-3 mb-3">
+						<img src="http://batdongsan.local/media/gioi-thieu-1.png" class="float-right w-100">
+					</div>
+				</div>
+
+				<div class="row mx-0 align-items-center">
+					<div class="col-md-12 mt-3">
+						<h4 class="title" id="hoachdinh">Hoạch định - Sứ mệnh  <span class="arrow-right "></span></h4>
+					</div>
+					<div class="col-md-3 mb-3">
+						<img src="http://batdongsan.local/media/gioi-thieu-2.png" class="float-left w-100">
+					</div>
+					<div class="col-md-9 mb-3">
+						<div class="content">
+							<strong>Hoạch định</strong><br>
+							Trở thành một tập đoàn đa ngành nghề, đa sở hữu và đa quốc gia.
+							<br><br>
+							<strong>Sứ Mệnh</strong><br>
+							– Đối với khách hàng: Thấu hiểu và đáp ứng tối đa các nhu cầu nhằm mang đến lựa chọn tối ưu cho cuộc sống khách hàng.<br>
+							– Đối với cổ đông: Đồng hành cùng cổ đông chia sẻ cơ hội, thách thức và lợi ích.<br>
+							– Đối với nhân viên: Tạo môi trường làm việc cởi mở, thân thiện nhưng đầy thử thách với nhiều cơ hội cho nhân viên thể hiện bản thân, phát triển sự nghiệp và nâng cao giá trị bản thân cũng như đời sống tinh thần.<br>
+							– Đối với xã hội: Chung tay mang đến cuộc sống ưu việt, hạnh phúc cho cộng đồng và nâng cao chất lượng cuộc sống con người.
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 team-pro hover-effect">
-				<div class="team-wrap">
-					<div class="team-img">
-						<img src="<?php echo base_url('assets/themes/' . active_clients_theme());?>/images/team/t-6.jpg" alt="" />
+
+
+				<div class="row mx-0 align-items-center">
+					<div class="col-md-12 mt-3">
+						<h4 class="title" id="giatri">Giá trị cốt lõi  <span class="arrow-right "></span></h4>
 					</div>
-					<div class="team-content">
-						<div class="team-info">
-							<h3>Arling Tracy</h3>
-							<p>Acountant</p>
-							<div class="team-socials">
-								<ul>
-									<li>
-										<a href="#" title="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-										<a href="#" title="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-										<a href="#" title="instagran"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-									</li>
-								</ul>
-							</div>
-							<span><a href="team-details.html">View Profile</a></span>
+					<div class="col-md-9 mb-3">
+						<div class="content">
+							– Tâm: Luôn thành tâm với khách hàng, tâm huyết với công việc, nhiệt tâm với đồng nghiệp.<br><br>
+
+							– Tài: Địa ốc 19 là nơi tạo điều kiện để mỗi cá nhân bộc lộ , hoàn thiện và phát huy tối đa tài năng, nhân cách, bản lĩnh riêng của mình.<br><br>
+
+							– Trí: Cam kết mang lại cho khách hàng những lựa chọn và giải pháp bất động sản hoàn hảo, là kết tinh trí tuệ của toàn thể Ban lãnh đạo, cán bộ nhân viên Địa ốc 19. Từ những hạt nhân bé nhỏ_mỗi nhân viên Địa ốc 19 luôn tự hào thể hiện bản lĩnh của một tri thức chuẩn mực.<br><br>
+
+							– Tín: Dựa vào lợi thế tích hợp giữa Đầu tư – Xây dựng – Quản lý điều hành – Dịch vụ môi giới, Địa ốc 19 luôn là đơn vị cung cấp các giải pháp BĐS được đánh giá dưới nhiều tiêu trí nhằm nổi bật nhiều ưu điểm vượt trội so với các BĐS cùng khu vực. Trước khi tung ra thị trường các sản phẩm BĐS, Địa ốc 19 luôn chặt chẽ trong việc nhận định năng lực cũng như uy tín của CĐT, thẩm định dự án, thương thảo đàm phán, đánh giá độ an toàn của sản phẩm với các khách hàng tiềm năng. Bên cạnh đó, dịch vụ chăm sóc khách hàng, hậu bán hàng luôn được đề cao. Tất cả những yếu tố này nhằm mang lại sự an tâm tuyệt đối cho Đối tác và khách hàng.
+
+						</div>
+					</div>
+					<div class="col-md-3 mb-3">
+						<img src="http://batdongsan.local/media/gioi-thieu-3.png" class="float-right w-100">
+					</div>
+				</div>
+
+				<div class="row mx-0 align-items-center">
+					<div class="col-md-12 mt-3">
+						<h4 class="title" id="linhvuc">Lĩnh vực hoạt động   <span class="arrow-right "></span></h4>
+					</div>
+					<div class="col-md-12 mb-3">
+						<div class="content">
+							- Tư vấn đầu tư bất động sản <br>
+							- Đầu tư bất động sản <br>
+							- Du lịch nghỉ dưỡng<br>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 team-pro pb-none hover-effect">
-				<div class="team-wrap">
-					<div class="team-img">
-						<img src="<?php echo base_url('assets/themes/' . active_clients_theme());?>/images/team/t-7.jpg" alt="" />
+
+				<div class="row mx-0 align-items-center">
+					<div class="col-md-12 mt-3">
+						<h4 class="title" id="nangluc">Năng lực hoạt động  <span class="arrow-right "></span></h4>
 					</div>
-					<div class="team-content">
-						<div class="team-info">
-							<h3>Mark Web</h3>
-							<p>Founder &amp; CEO</p>
-							<div class="team-socials">
-								<ul>
-									<li>
-										<a href="#" title="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-										<a href="#" title="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-										<a href="#" title="instagran"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-									</li>
-								</ul>
-							</div>
-							<span><a href="team-details.html">View Profile</a></span>
-						</div>
+					<div class="col-md-3 mb-3">
+						<img src="http://batdongsan.local/media/gioi-thieu-4.png" class="float-left w-100">
 					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 team-pro hover-effect kat">
-				<div class="team-wrap">
-					<div class="team-img">
-						<img src="<?php echo base_url('assets/themes/' . active_clients_theme());?>/images/team/t-8.jpg" alt="" />
-					</div>
-					<div class="team-content">
-						<div class="team-info">
-							<h3>Katy Grace</h3>
-							<p>Team Leader</p>
-							<div class="team-socials">
-								<ul>
-									<li>
-										<a href="#" title="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-										<a href="#" title="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-										<a href="#" title="instagran"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-									</li>
-								</ul>
-							</div>
-							<span><a href="team-details.html">View Profile</a></span>
+					<div class="col-md-9 mb-3">
+						<div class="content">
+							- 2016 là nhà độc quyền phân phối dự án bất động sản Lacasa Villa ,Số 25 đường Vũ Ngọc Phan, Phường Láng Hạ, Quận Đống Đa, TP. Hà Nội<br>
+							- 2017 Trở thành đối tác phân phối chiến lược cho các dự án  lớn có mặt ở Phú Quốc ,đẩy mạnh hợp tác với những tổ chức bất động sản hàng đầu Việt Nam<br>
+							- 2018 Hoạt động kinh doanh môi giới bất động sản ở ba vùng đăch khu kinh tế Việt Nam<br>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </section>
-<!-- END SECTION AGENTS -->

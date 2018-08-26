@@ -39,6 +39,14 @@
      echo render_input('slug','kb_article_slug',$article->slug,'text');
    } ?>
 
+    <?php $value = (isset($article) ? $article->location_id : ''); ?>
+      <?php if(has_permission('property','','create')){
+         echo render_select_with_input_group('location_id',get_property_location(),array('location_id','location_name'),'property_article_add_edit_location',$value,'<a target="blank" href="' . admin_url('property/manage_locations') .'"><i class="fa fa-plus"></i></a>');
+       } else {
+        echo render_select('location_id',get_property_location(),array('location_id','location_name'),'property_article_add_edit_location',$value);
+      }
+      ?>
+
    <?php $value = (isset($article) ? $article->avatar : ''); ?>
     <div class="form-group">
       <label for="property_bedroom" class="control-label">
@@ -104,12 +112,20 @@
   }
 
   $(function(){
+    $(document).on('click', '.btn-view', function() {
+      var url = $(this).parents('.input-group').find('input').val();
+      if (url) {
+        window.open(url);
+      }
+    });
+
     _validate_form($('#article-form'),{
       subject:'required',
       articlegroup:'required',
       seo_title:'required',
       seo_description:'required',
       avatar:'required',
+      location_id:'required',
     });
   });
 </script>

@@ -113,7 +113,8 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = (defined('APP_ENABLE_HOOKS') ? APP_ENABLE_HOOKS : false);
+$config['enable_hooks'] = true;
+// $config['enable_hooks'] = (defined('APP_ENABLE_HOOKS') ? APP_ENABLE_HOOKS : false);
 
 /*
 |--------------------------------------------------------------------------
@@ -491,6 +492,7 @@ if($config['csrf_protection'] == true && isset($_SERVER['REQUEST_URI']) && strpo
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
+// $config['compress_output'] = TRUE;
 $config['compress_output'] = (DEFINED('APP_COMPRESS_OUTPUT') ? APP_COMPRESS_OUTPUT : false);
 
 /*

@@ -1,135 +1,77 @@
-	<!-- START FOOTER -->
-	<footer class="first-footer">
-		<div class="top-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-6">
-						<div class="netabout">
-							<a href="index.html" class="logo">
-								<img src="<?php echo base_url('assets/themes/' . active_clients_theme() . '/images/logo-footer.svg');?>" alt="netcom">
-							</a>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus impedit perferendis, laudantium molestiae ipsam rem veniam facere quos! Temporibus, minima culpa deleniti magnam.</p>
-							<a href="about.html" class="btn btn-secondary">Đọc tiếp ...</a>
-						</div>
+<footer>
+	<div class="subscribe">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 offset-md-1">
+					<div class="subscribe-text-left">
+						<i class="fa fa-envelope"></i>
 					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="navigation">
-							<h3>DANH MỤC</h3>
-							<div class="nav-footer">
-								<ul>
-									<li><a href="">Home One</a></li>
-									<li><a href="">Properties Right</a></li>
-									<li><a href="">Properties List</a></li>
-									<li><a href="">Property Details</a></li>
-									<li class="no-mgb"><a href="">Agents Listing</a></li>
-								</ul>
-							</div>
-						</div>
+					<div class="subscribe-text-right">
+						Đăng ký nhận bản tin VSR<br>
+						Đừng bỏ lỡ những cơ hội đầu tư hấp dẫn nhất
 					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="widget">
-							<h3>TIN TỨC</h3>
-							<div class="blog-widget">
-								<div class="item">
-									<a href="blog-details.html">
-										<div class="image-thumb">
-											<img src="<?php echo base_url('assets/themes/' . active_clients_theme() . '/images/blog/b-1.jpg');?>">
-										</div>
-										<div class="info-post">
-											<h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h6>
-										</div>
-									</a>
-								</div>
-								<div class="item">
-									<a href="blog-details.html">
-										<div class="image-thumb">
-											<img src="<?php echo base_url('assets/themes/' . active_clients_theme() . '/images/blog/b-1.jpg');?>">
-										</div>
-										<div class="info-post">
-											<h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h6>
-										</div>
-									</a>
-								</div>
-								
-								<div class="item">
-									<a href="blog-details.html">
-										<div class="image-thumb">
-											<img src="<?php echo base_url('assets/themes/' . active_clients_theme() . '/images/blog/b-1.jpg');?>">
-										</div>
-										<div class="info-post">
-											<h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h6>
-										</div>
-									</a>
-								</div>
-								
-								<div class="item">
-									<a href="blog-details.html">
-										<div class="image-thumb">
-											<img src="<?php echo base_url('assets/themes/' . active_clients_theme() . '/images/blog/b-1.jpg');?>">
-										</div>
-										<div class="info-post">
-											<h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h6>
-										</div>
-									</a>
-								</div>
-								
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="contactus">
-							<h3>LIÊN HỆ </h3>
-							<ul>
-								<li>
-									<div class="info">
-										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										<p class="in-p">Ha Noi, VietNam</p>
-									</div>
-								</li>
-								<li>
-									<div class="info">
-										<i class="fa fa-phone" aria-hidden="true"></i>
-										<p class="in-p">0999 999 999</p>
-									</div>
-								</li>
-								<li>
-									<div class="info">
-										<i class="fa fa-envelope" aria-hidden="true"></i>
-										<p class="in-p ti">support@vsr.vn</p>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<ul class="netsocials">
-							<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-							<li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-						</ul>
-					</div>
+				</div>
+				<div class="col-md-6">
+					<?php echo form_open(site_url('add_contact'), ['class' => 'form-inline']); ?>
+						<input type="hidden" name="type" value="<?php echo CONTACT_TYPE_EMAIL; ?>">
+						<input type="email" name="contact_email" placeholder="Nhập địa chỉ email của bạn" class="form-control mb-2 mr-sm-2 input-subscribe" required>
+						<button type="submit" class="btn btn-primary mb-2 btn-subscribe">Đăng ký</button>
+					<?php echo form_close(); ?>
 				</div>
 			</div>
 		</div>
-		<div class="second-footer">
-			<div class="container">
-				<p>2018 © Copyright - All Rights Reserved.</p>
-				<p>Design with <i class="fa fa-eye" aria-hidden="true"></i> By NCASH</p>
+	</div>
+	<div class="footer-widget">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 widget">
+					<h3>Hỗ trợ khách hàng</h3>
+					<ul>
+						<li><a href="<?=site_url('/')?>clients/register">Đăng ký thành viên</a></li>
+						<li><a href="<?=site_url('/') . SEARCH_SLUG ?>">Tìm kiếm bất động sản</a></li>
+						<li><a href="<?=site_url('/') . ADVICES_SLUG ?>">Thông tin tư vấn</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 widget">
+					<h3>Về VSR</h3>
+					<ul>
+						<li><a href="<?=site_url('/')?>gioi-thieu">Giới thiệu</a></li>
+						<li><a href="<?=site_url('/')?>tuyen-dung">Tuyển dụng</a></li>
+						<li><a href="<?=site_url('/')?>chinh-sach-bao-mat">Chính sách bảo mật</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 widget">
+					<?php
+						$footer_doitac = get_option('footer_doitac');
+						$footer_doitac = json_decode($footer_doitac);
+					?>
+					<h3>Đối tác tin cậy</h3>
+					<div class="row doitac">
+						<?php foreach ($footer_doitac as $key => $doitac):?>
+							<div class="col-4 mb-3">
+								<img src="<?php echo $doitac;?>" class="w-100">
+							</div>
+						<?php endforeach;?>
+					</div>
+				</div>
+				<div class="col-md-3 widget">
+					<h3>Kết nối với chúng tôi</h3>
+					<ul>
+						<li><a href="<?=get_option('footer_facebook')?>" title="Facebook">Facebook</a></li>
+						<li><a href="<?=get_option('footer_google')?>" title="Google+">Google+</a></li>
+						<li><a href="<?=get_option('footer_youtube')?>" title="Youtube">Youtube</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</footer>
-
-	<a data-scroll href="#heading" class="go-up"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
-	<!-- END FOOTER -->
-	<?php if (isset($home)): ?>
-	<!-- START PRELOADER -->
-	<div id="preloader">
-		<div id="status">
-			<div class="status-mes"></div>
-		</div>
 	</div>
-	<?php endif; ?>
-	<!-- END PRELOADER -->
-	<div class="pusher"></div>
-</body>
-
-</html>
+	<!-- <div class="footer-copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					Bản quyền thuộc về VSR. Cấm sao chép nội dung dưới mọi hình thức nếu không có sự chấp thuận bằng văn bản từ VSR.
+				</div>
+			</div>
+		</div>
+	</div> -->
+</footer>

@@ -46,7 +46,7 @@ function add_views_tracking($rel_type, $rel_id)
 {
     $CI = & get_instance();
     if (!is_staff_logged_in()) {
-        $CI->db->where('rel_id', $rel_id);
+        /*$CI->db->where('rel_id', $rel_id);
         $CI->db->where('rel_type', $rel_type);
         $CI->db->order_by('id', 'DESC');
         $CI->db->limit(1);
@@ -57,7 +57,7 @@ function add_views_tracking($rel_type, $rel_id)
             if ($dateFromDatabase >= $date1HourAgo) {
                 return false;
             }
-        }
+        }*/
     } else {
         // Staff logged in, nothing to do here
         return false;
@@ -793,14 +793,197 @@ function get_news_groups()
 
     return $CI->db->get('newsgroups')->result_array();
 }
-
-function get_laws_groups()
+function get_mreports_groups()
 {
     $CI = & get_instance();
 
-    return $CI->db->get('lawsgroups')->result_array();
+    return $CI->db->get('mreportsgroups')->result_array();
+}
+function get_advices_groups()
+{
+    $CI = & get_instance();
+
+    return $CI->db->get('advicesgroups')->result_array();
 }
 
+function get_property_hot()
+{
+    $CI = & get_instance();
+    $CI->db->select('
+        property_id,
+        property_theloai,
+        property_name,
+        property_avatar,
+        property_content,
+        property_category_id,
+        property_type_id,
+        property_location_id,
+        property_town_id,
+        property_status,
+        property_price,
+        property_bedroom,
+        property_bathroom,
+        property_acreage,
+        property_facade,
+        property_slug,
+        property_seo_title,
+        property_seo_description,
+        property_created_at,
+        property_active,
+        property_order,
+        property_stick,
+        category_name,
+        category_slug,
+        category_description,
+        category_active,
+        category_order,
+        location_name,
+        location_description,
+        location_slug,
+        location_active,
+        location_order,
+        type_name,
+        type_slug,
+        type_description,
+        type_active,
+        type_order,
+        location_seo_title,
+        location_seo_description,
+        category_seo_title,
+        category_seo_description,
+        type_seo_title,
+        type_seo_description,
+        town_name,
+        town_slug,
+        town_description,
+        town_seo_title,
+        town_seo_description,
+        property_socan,
+        property_solo,
+        property_quyhoach,
+        vitri_google,
+        property_matbang,
+        property_canhonen,
+        property_tienich,
+        author
+    ');
+    $CI->db->from('property');
+    $CI->db->join('property_categories', 'property_categories.category_id = property.property_category_id', 'left');
+    $CI->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');
+    $CI->db->join('property_types', 'property_types.type_id = property.property_type_id', 'left');
+    $CI->db->join('property_towns', 'property_towns.town_id = property.property_town_id', 'left');
+
+    $CI->db->where("property_theloai", PROJECT);
+    $CI->db->order_by("property_stick", "desc");
+    $CI->db->order_by("property_id", "desc");
+    $CI->db->where("property_active", 1);
+    $CI->db->limit(5);
+    return $CI->db->get()->result_array();
+}
+function get_product_hot()
+{
+    $CI = & get_instance();
+    $CI->db->select('
+        property_id,
+        property_theloai,
+        property_name,
+        property_avatar,
+        property_content,
+        property_category_id,
+        property_type_id,
+        property_location_id,
+        property_town_id,
+        property_status,
+        property_price,
+        property_bedroom,
+        property_bathroom,
+        property_acreage,
+        property_facade,
+        property_slug,
+        property_seo_title,
+        property_seo_description,
+        property_created_at,
+        property_active,
+        property_order,
+        property_stick,
+        category_name,
+        category_slug,
+        category_description,
+        category_active,
+        category_order,
+        location_name,
+        location_description,
+        location_slug,
+        location_active,
+        location_order,
+        type_name,
+        type_slug,
+        type_description,
+        type_active,
+        type_order,
+        location_seo_title,
+        location_seo_description,
+        category_seo_title,
+        category_seo_description,
+        type_seo_title,
+        type_seo_description,
+        town_name,
+        town_slug,
+        town_description,
+        town_seo_title,
+        town_seo_description,
+        property_socan,
+        property_solo,
+        property_quyhoach,
+        vitri_google,
+        property_matbang,
+        property_canhonen,
+        property_tienich,
+        author
+    ');
+    $CI->db->from('property');
+    $CI->db->join('property_categories', 'property_categories.category_id = property.property_category_id', 'left');
+    $CI->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');
+    $CI->db->join('property_types', 'property_types.type_id = property.property_type_id', 'left');
+    $CI->db->join('property_towns', 'property_towns.town_id = property.property_town_id', 'left');
+
+    $CI->db->where("property_theloai", PRODUCT);
+    $CI->db->order_by("property_stick", "desc");
+    $CI->db->order_by("property_id", "desc");
+    $CI->db->where("property_active", 1);
+    $CI->db->limit(5);
+    return $CI->db->get()->result_array();
+}
+function get_advice_new()
+{
+    $CI = & get_instance();
+    $CI->db->select('slug,articleid, articlegroup, subject,advices.description,advices.active as active_article, avatar, datecreated, seo_title, seo_description, advicesgroups.active as active_group,name as group_name, group_slug, group_seo_title, group_seo_description, author');
+    $CI->db->from('advices');
+    $CI->db->join('advicesgroups', 'advicesgroups.groupid = advices.articlegroup', 'left');
+    $CI->db->order_by("articleid", "desc");
+    $CI->db->where("advices.active", 1);
+    $CI->db->limit(5);
+    return $CI->db->get()->result_array();
+}
+
+function get_news_new()
+{
+    $CI = & get_instance();
+    $CI->db->order_by("articleid", "desc");
+    $CI->db->where("active", 1);
+    $CI->db->limit(5);
+    return $CI->db->get('news')->result_array();
+}
+
+
+function get_property_new()
+{
+    $CI = & get_instance();
+    $CI->db->order_by("property_id", "desc");
+    $CI->db->where("property_active", 1);
+    $CI->db->limit(5);
+    return $CI->db->get('property')->result_array();
+}
 
 function get_property_cat()
 {
@@ -819,6 +1002,12 @@ function get_property_location()
     $CI = & get_instance();
 
     return $CI->db->get('property_locations')->result_array();
+}
+function get_property_town()
+{
+    $CI = & get_instance();
+
+    return $CI->db->get('property_towns')->result_array();
 }
 function get_property_characteristic()
 {

@@ -1,6 +1,7 @@
 <?php
    ob_start();
    ?>
+<?php /*
 <li id="top_search" class="dropdown" data-toggle="tooltip" data-placement="bottom" data-title="<?php echo _l('search_by_tags'); ?>">
    <input type="search" id="search_input" class="form-control" placeholder="<?php echo _l('top_search_placeholder'); ?>">
    <div id="search_results">
@@ -9,6 +10,7 @@
 <li id="top_search_button">
    <button class="btn"><i class="fa fa-search"></i></button>
 </li>
+*/?>
 <?php
    $top_search_area = ob_get_contents();
    ob_end_clean();
@@ -16,12 +18,12 @@
 <div id="header">
    <div class="hide-menu"><i class="fa fa-bars"></i></div>
    <div id="logo">
-      <?php get_company_logo(get_admin_uri().'/') ?>
+      <?php get_dark_company_logo(get_admin_uri().'/') ?>
    </div>
    <nav>
       <div class="small-logo">
          <span class="text-primary">
-         <?php get_company_logo(get_admin_uri().'/') ?>
+         <?php get_dark_company_logo(get_admin_uri().'/') ?>
          </span>
       </div>
       <div class="mobile-menu">

@@ -21,6 +21,8 @@ $has_permission_create = has_permission('property','','create');
 
                  <a href="<?php echo admin_url('property/manage_locations'); ?>" class="btn btn-info mright5"><?php echo _l('als_kb_locations'); ?></a>
 
+                 <a href="<?php echo admin_url('property/manage_towns'); ?>" class="btn btn-info mright5"><?php echo _l('als_kb_towns'); ?></a>
+
                  <a href="<?php echo admin_url('property/manage_characteristics'); ?>" class="btn btn-info mright5"><?php echo _l('als_kb_characteristics'); ?></a>
 
                  <?php } ?>

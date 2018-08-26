@@ -12,18 +12,7 @@ class Clients extends Clients_controller
 
     public function index()
     {
-        if (!is_client_logged_in()) {
-            redirect(site_url('clients/login'));
-        }
-        $data['is_home'] = true;
-        $this->load->model('reports_model');
-        $data['payments_years'] = $this->reports_model->get_distinct_customer_invoices_years();
-
-        $data['project_statuses'] = $this->projects_model->get_project_statuses();
-        $data['title']            = get_company_name(get_client_user_id());
-        $this->data               = $data;
-        $this->view               = 'home';
-        $this->layout();
+        redirect(site_url('/'));
     }
 
     public function announcements()
@@ -1102,6 +1091,8 @@ class Clients extends Clients_controller
         $this->form_validation->set_rules('firstname', _l('client_firstname'), 'required');
         $this->form_validation->set_rules('lastname', _l('client_lastname'), 'required');
         $this->form_validation->set_rules('email', _l('client_email'), 'trim|required|is_unique[tblcontacts.email]|valid_email');
+        $this->form_validation->set_rules('contact_phonenumber', _l('clients_phone'), 'required');
+        $this->form_validation->set_rules('groups_in[]', 'Nhóm khách hàng', 'required');
         $this->form_validation->set_rules('password', _l('clients_register_password'), 'required');
         $this->form_validation->set_rules('passwordr', _l('clients_register_password_repeat'), 'required|matches[password]');
 
@@ -1183,6 +1174,7 @@ class Clients extends Clients_controller
 
         $data['title']     = _l('clients_register_heading');
         $data['bodyclass'] = 'register';
+        $data['groups'] = $this->clients_model->get_groups();
         $this->data        = $data;
         $this->view        = 'register';
         $this->layout();

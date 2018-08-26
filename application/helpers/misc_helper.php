@@ -486,6 +486,48 @@ function get_permission_conditions()
             'create'   => true,
             'delete'   => true,
         ],
+        'news' => [
+            'view'     => true,
+            'view_own' => true,
+            'edit'     => true,
+            'create'   => true,
+            'delete'   => true,
+        ],
+        'property' => [
+            'view'     => true,
+            'view_own' => true,
+            'edit'     => true,
+            'create'   => true,
+            'delete'   => true,
+        ],
+        'contacts' => [
+            'view'     => true,
+            'view_own' => true,
+            'edit'     => true,
+            'create'   => true,
+            'delete'   => true,
+        ],
+        'pages' => [
+            'view'     => true,
+            'view_own' => true,
+            'edit'     => true,
+            'create'   => true,
+            'delete'   => true,
+        ],
+        'advices' => [
+            'view'     => true,
+            'view_own' => true,
+            'edit'     => true,
+            'create'   => true,
+            'delete'   => true,
+        ],
+        'mreports' => [
+            'view'     => true,
+            'view_own' => true,
+            'edit'     => true,
+            'create'   => true,
+            'delete'   => true,
+        ],
     ]);
 }
 

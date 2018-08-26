@@ -122,14 +122,9 @@
       </li>
       <?php $i++; } ?>
     </ul>
-    <div class="panel_s">
-      <div class="panel-body">
-        <a href="<?php echo admin_url('settings?group=update'); ?>" class="<?php if($this->input->get('group') == 'update'){echo 'bold';} ?>"><?php echo _l('settings_update'); ?></a>
         <div class="btn-bottom-toolbar text-right">
          <button type="submit" class="btn btn-info"><?php echo _l('settings_save'); ?></button>
        </div>
-     </div>
-   </div>
  </div>
  <div class="col-md-9">
   <div class="panel_s">

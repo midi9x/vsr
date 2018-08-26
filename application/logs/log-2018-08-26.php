@@ -1,0 +1,40 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Trang chủ"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Giới thiệu"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Báo cáo thị trường"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Tin tư vấn"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Phú Quốc"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Vân Đồn"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Bắc Vân Phong"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Tin tức"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Liên hệ"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Sản phẩm"
+ERROR - 2018-08-26 10:10:22 --> Could not find the language line "Dự án"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Trang chủ"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Tư vấn đầu tư"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Sản phẩm"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Dự án"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Phú Quốc"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Vân Đồn"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Bắc Vân Phong"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Tin tức"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Giới thiệu"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Liên hệ"
+ERROR - 2018-08-26 10:11:33 --> Could not find the language line "Báo cáo thị trường"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Trang chủ"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Tư vấn đầu tư"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Sản phẩm"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Dự án"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Phú Quốc"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Vân Đồn"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Bắc Vân Phong"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Tin tức"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Giới thiệu"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Liên hệ"
+ERROR - 2018-08-26 10:14:50 --> Could not find the language line "Báo cáo thị trường"
+ERROR - 2018-08-26 05:20:52 --> 404 Page Not Found: Assets/themes
+ERROR - 2018-08-26 05:21:49 --> 404 Page Not Found: Assets/themes
+ERROR - 2018-08-26 05:23:12 --> 404 Page Not Found: Assets/themes
+ERROR - 2018-08-26 05:24:34 --> 404 Page Not Found: Assets/themes
+ERROR - 2018-08-26 05:26:17 --> 404 Page Not Found: Assets/themes

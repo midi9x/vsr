@@ -14,32 +14,129 @@ class Property_model extends CRM_Model
      * @param  string $slug if search by slug
      * @return mixed       if ID or slug passed return object else array
      */
-    public function get($id = '', $slug = '', $location_slug = '',$category_slug = '',$type_slug = '', $limit = '', $start = '')
+    public function get($id = '', $slug = '', $location = '',$category = '', $type = '', $q='', $sort = '', $limit = '', $start = '', $town = '', $theloai = '', $price = '')
     {
         if ($limit > 0 && $start >= 0) {
             $this->db->limit($limit, $start);
         }
-        $this->db->select('property_id, property_name, property_avatar, property_content, property_category_id, property_type_id, property_location_id, property_status, property_price, property_bedroom, property_bathroom, property_acreage, property_facade, property_slug, property_seo_title, property_seo_description, property_created_at, property_active, property_order,property_stick, category_name, category_slug, category_description, category_active, category_order, location_name,location_description,location_slug,location_active,location_order, type_name,type_slug,type_description,type_active,type_order, location_seo_title, location_seo_description');
+        $this->db->select('
+            property_id,
+            property_theloai,
+            property_name,
+            property_avatar,
+            property_content,
+            property_category_id,
+            property_type_id,
+            property_location_id,
+            property_town_id,
+            property_status,
+            property_price,
+            property_bedroom,
+            property_bathroom,
+            property_acreage,
+            property_facade,
+            property_slug,
+            property_seo_title,
+            property_seo_description,
+            property_created_at,
+            property_active,
+            property_order,
+            property_stick,
+            category_name,
+            category_slug,
+            category_description,
+            category_active,
+            category_order,
+            location_name,
+            location_description,
+            location_slug,
+            location_active,
+            location_order,
+            type_name,
+            type_slug,
+            type_description,
+            type_active,
+            type_order,
+            location_seo_title,
+            location_seo_description,
+            category_seo_title,
+            category_seo_description,
+            type_seo_title,
+            type_seo_description,
+            town_name,
+            town_slug,
+            town_description,
+            town_seo_title,
+            town_seo_description,
+            property_socan,
+            property_solo,
+            property_quyhoach,
+            vitri_google,
+            property_matbang,
+            property_canhonen,
+            property_tienich
+        ');
         $this->db->from('property');
         $this->db->join('property_categories', 'property_categories.category_id = property.property_category_id', 'left');
         $this->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');
         $this->db->join('property_types', 'property_types.type_id = property.property_type_id', 'left');
-        $this->db->order_by('property_order', 'asc');
+        $this->db->join('property_towns', 'property_towns.town_id = property.property_town_id', 'left');
+        if ($this->router->directory  != 'admin/') {
+            $this->db->where('property_active', 1);
+            $this->db->where('property_categories.category_active', 1);
+            $this->db->where('property_locations.location_active', 1);
+            $this->db->where('property_types.type_active', 1);
+            $this->db->where('property_towns.town_active', 1);
+        }
         if (is_numeric($id)) {
             $this->db->where('property_id', $id);
         }
-        if ($location_slug != '') {
-            $this->db->where('location_slug', $location_slug);
+        if ($location != '') {
+            if (is_numeric($location)) {
+                $this->db->where('property_location_id', $location);
+            } else {
+                $this->db->where('location_slug', $location);
+            }
         }
-        if ($category_slug != '') {
-            $this->db->where('category_slug', $category_slug);
+        if ($category != '') {
+            if (is_numeric($category)) {
+                $this->db->where('property_category_id', $category);
+            } else {
+                $this->db->where('category_slug', $category);
+            }
         }
-        if ($type_slug != '') {
-            $this->db->where('type_slug', $type_slug);
+        if ($type != '') {
+            if (is_numeric($type)) {
+                $this->db->where('property_type_id', $type);
+            } else {
+                $this->db->where('type_slug', $type);
+            }
+        }
+        if ($town != '') {
+            if (is_numeric($town)) {
+                $this->db->where('property_town_id', $town);
+            } else {
+                $this->db->where('town_slug', $town);
+            }
+        }
+        if ($q != '') {
+            $this->db->like('property_name', $q);
+            $this->db->or_like('property_content', $q);
         }
         if ($slug != '') {
             $this->db->where('property_slug', $slug);
         }
+
+        if (isset($_GET['from'])) {
+            $this->db->where('property_price >=', $_GET['from']);
+        }
+        if (isset($_GET['to'])) {
+            $this->db->where('property_price <=', $_GET['to']);
+        }
+
+        $this->db->order_by('property_stick', 'desc');
+        $this->db->order_by('property_id', 'desc');
+
         if ($this->input->get('category_id')) {
             $this->db->where('property_category_id', $this->input->get('category_id'));
         }
@@ -57,19 +154,55 @@ class Property_model extends CRM_Model
      */
     public function get_related_articles($current_id, $customers = true)
     {
-        $total_related_articles = 5;
-        $total_related_articles = do_action('total_related_articles', $total_related_articles);
-
+        $total_related_articles = 3;
         $this->db->select('property_category_id');
         $this->db->where('property_id', $current_id);
         $article = $this->db->get('property')->row();
 
+        $this->db->select('
+            property_id,
+            property_theloai,
+            property_name,
+            property_avatar,
+            property_content,
+            property_category_id,
+            property_type_id,
+            property_location_id,
+            property_town_id,
+            property_status,
+            property_price,
+            property_bedroom,
+            property_bathroom,
+            property_acreage,
+            property_facade,
+            property_slug,
+            property_seo_title,
+            property_seo_description,
+            property_created_at,
+            property_active,
+            property_order,
+            property_stick,
+            location_name,
+            town_name,
+            property_socan,
+            property_solo,
+            property_quyhoach,
+            vitri_google,
+            property_matbang,
+            property_canhonen,
+            property_tienich,
+            author
+        ');
+        $this->db->from('property');
+        $this->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');
+        $this->db->join('property_towns', 'property_towns.town_id = property.property_town_id', 'left');
         $this->db->where('property_category_id', $article->property_category_id);
         $this->db->where('property_id !=', $current_id);
-        $this->db->where('active', 1);
+        $this->db->where('property_active', 1);
         $this->db->limit($total_related_articles);
-
-        return $this->db->get('property')->result_array();
+        $this->db->order_by('property_stick', 'desc');
+        $this->db->order_by('property_id', 'desc');
+        return $this->db->get()->result_array();
     }
 
     /**
@@ -90,14 +223,15 @@ class Property_model extends CRM_Model
         } else {
             $data['property_stick'] = 0;
         }
-        if (is_array($data['characteristic_id'])) {
+        if (isset($data['characteristic_id']) && is_array($data['characteristic_id'])) {
             $characteristic_id = $data['characteristic_id'];
             unset($data['characteristic_id']);
         }
-        if (is_array($data['property_image'])) {
+        if (isset($data['property_image']) && is_array($data['property_image'])) {
             $property_image = $data['property_image'];
             unset($data['property_image']);
         }
+        $data['author'] = get_staff_full_name(get_staff_user_id());
         $data['property_created_at'] = date('Y-m-d H:i:s');
         $data['property_slug']        = slug_it($data['property_name']);
         $this->db->like('property_slug', $data['property_slug']);
@@ -155,18 +289,18 @@ class Property_model extends CRM_Model
         } else {
             $data['property_stick'] = 0;
         }
-        if (is_array($data['characteristic_id'])) {
+        if (isset($data['characteristic_id']) && is_array($data['characteristic_id'])) {
             $characteristic_id = $data['characteristic_id'];
             unset($data['characteristic_id']);
         }
-        if (is_array($data['property_image'])) {
+        if (isset($data['property_image']) && is_array($data['property_image'])) {
             $property_image = $data['property_image'];
             unset($data['property_image']);
         }
-
+        $data['author'] = get_staff_full_name(get_staff_user_id());
         $this->db->where('property_id', $id);
         $this->db->update('property', $data);
-        
+
         $this->db->where('property_id', $id);
         $this->db->delete('property_characteristic_metas');
         if ($id && !empty($characteristic_id)) {
@@ -690,7 +824,9 @@ class Property_model extends CRM_Model
 
     public function get_contacts($id = '')
     {
+        $this->db->select('property_contacts.*, property_name');
         $this->db->from('property_contacts');
+        $this->db->join('property', 'property.property_id = property_contacts.property_id', 'inner');
         if (is_numeric($id)) {
             $this->db->where('contact_id', $id);
 
@@ -743,6 +879,380 @@ class Property_model extends CRM_Model
         $this->db->from('property_images');
         $this->db->where('property_id', $property_id);
         $this->db->order_by('id', 'asc');
+
+        return $this->db->get()->result_array();
+    }
+
+    public function add_contact($data)
+    {
+        $this->db->insert('property_contacts', $data);
+        $insert_id = $this->db->insert_id();
+        if ($insert_id) {
+            logActivity('New contact [ID: ' . $insert_id . ']');
+
+            return $insert_id;
+        }
+
+        return false;
+    }
+
+    public function add_wishlist($property_id)
+    {
+        if (!is_client_logged_in()) {
+            return false;
+        }
+        $data = [
+            'property_id' => $property_id,
+            'user_id' => get_client_user_id(),
+            'created_at' => date('Y-m-d H:i:s')
+        ];
+        $this->db->insert('wishlists', $data);
+        $insert_id = $this->db->insert_id();
+        if ($insert_id) {
+            logActivity('New wishlist [ID: ' . $insert_id . ']');
+
+            return $insert_id;
+        }
+
+        return false;
+    }
+
+    public function get_wishlist($property_id)
+    {
+        if (!is_client_logged_in()) {
+            return false;
+        }
+
+        $this->db->where('property_id', $property_id);
+        $this->db->where('user_id', get_client_user_id());
+        $this->db->from('wishlists');
+
+        return $this->db->get()->row();
+    }
+
+    /** Type **/
+    public function get_town($id = '', $active = '')
+    {
+        $this->db->select('property_towns.*, location_name');
+        $this->db->join('property_locations', 'property_locations.location_id = property_towns.town_location_id', 'inner');
+        $this->db->from('property_towns');
+        if (is_numeric($active)) {
+            $this->db->where('town_active', $active);
+        }
+        if (is_numeric($id)) {
+            $this->db->where('town_id', $id);
+
+            return $this->db->get()->row();
+        }
+        $this->db->order_by('town_order', 'asc');
+
+        return $this->db->get()->result_array();
+    }
+
+    public function add_town($data)
+    {
+        if (isset($data['disabled'])) {
+            $data['town_active'] = 0;
+            unset($data['disabled']);
+        } else {
+            $data['town_active'] = 1;
+        }
+
+        $data['town_slug']        = slug_it($data['town_name']);
+        $this->db->like('town_slug', $data['town_slug']);
+        $slug_total = $this->db->count_all_results('property_towns');
+        if ($slug_total > 0) {
+            $data['town_slug'] .= '-' . ($slug_total + 1);
+        }
+
+        $this->db->insert('property_towns', $data);
+        $insert_id = $this->db->insert_id();
+        if ($insert_id) {
+            logActivity('New town [ID: ' . $insert_id . ']');
+
+            return $insert_id;
+        }
+
+        return false;
+    }
+
+    public function update_town($data, $id)
+    {
+        if (isset($data['disabled'])) {
+            $data['town_active'] = 0;
+            unset($data['disabled']);
+        } else {
+            $data['town_active'] = 1;
+        }
+        $this->db->where('town_id', $id);
+        $this->db->update('property_towns', $data);
+        if ($this->db->affected_rows() > 0) {
+            logActivity('Updated town [ID: ' . $id . ']');
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function change_town_status($id, $status)
+    {
+        $this->db->where('town_id', $id);
+        $this->db->update('property_towns', [
+            'town_active' => $status,
+        ]);
+        logActivity('Town Status Changed [ID: ' . $id . ' Status: ' . $status . ']');
+    }
+
+    public function delete_town($id)
+    {
+        $current = $this->get_town_by_id($id);
+        if (is_reference_in_table('property_town_id', 'property', $id)) {
+            return [
+                'referenced' => true,
+            ];
+        }
+        $this->db->where('town_id', $id);
+        $this->db->delete('property_towns');
+        if ($this->db->affected_rows() > 0) {
+            logActivity('town Deleted');
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function get_town_by_id($id)
+    {
+        $this->db->where('town_id', $id);
+
+        return $this->db->get('property_towns')->row();
+    }
+
+    public function get_detail($slug = '')
+    {
+        $this->db->select('
+            property_id,
+            property_theloai,
+            property_name,
+            property_avatar,
+            property_content,
+            property_category_id,
+            property_type_id,
+            property_location_id,
+            property_town_id,
+            property_status,
+            property_price,
+            property_bedroom,
+            property_bathroom,
+            property_acreage,
+            property_facade,
+            property_slug,
+            property_seo_title,
+            property_seo_description,
+            property_created_at,
+            property_active,
+            property_order,
+            property_stick,
+            category_name,
+            category_slug,
+            category_description,
+            category_active,
+            category_order,
+            location_name,
+            location_description,
+            location_slug,
+            location_active,
+            location_order,
+            type_name,
+            type_slug,
+            type_description,
+            type_active,
+            type_order,
+            location_seo_title,
+            location_seo_description,
+            category_seo_title,
+            category_seo_description,
+            type_seo_title,
+            type_seo_description,
+            town_name,
+            town_slug,
+            town_description,
+            town_seo_title,
+            town_seo_description,
+            property_socan,
+            property_solo,
+            property_quyhoach,
+            vitri_google,
+            property_matbang,
+            property_canhonen,
+            property_tienich,
+            author
+        ');
+        $this->db->from('property');
+        $this->db->join('property_categories', 'property_categories.category_id = property.property_category_id', 'left');
+        $this->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');
+        $this->db->join('property_types', 'property_types.type_id = property.property_type_id', 'left');
+        $this->db->join('property_towns', 'property_towns.town_id = property.property_town_id', 'left');
+        $this->db->where('property_slug', $slug);
+        if ($this->router->directory  != 'admin/') {
+            $this->db->where('property_active', 1);
+            $this->db->where('property_categories.category_active', 1);
+            $this->db->where('property_locations.location_active', 1);
+            $this->db->where('property_types.type_active', 1);
+            $this->db->where('property_towns.town_active', 1);
+        }
+        return $this->db->get()->row();
+    }
+
+    public function get_list(
+        $theloai = '',
+        $category = '',
+        $type = '',
+        $location = '',
+        $town = '',
+        $acreage = '',
+        $price = '',
+        $q='',
+        $limit = '',
+        $start = '') {
+        $this->db->select('
+            property_id,
+            property_theloai,
+            property_name,
+            property_avatar,
+            property_content,
+            property_category_id,
+            property_type_id,
+            property_location_id,
+            property_town_id,
+            property_status,
+            property_price,
+            property_bedroom,
+            property_bathroom,
+            property_acreage,
+            property_facade,
+            property_slug,
+            property_seo_title,
+            property_seo_description,
+            property_created_at,
+            property_active,
+            property_order,
+            property_stick,
+            category_name,
+            category_slug,
+            category_description,
+            category_active,
+            category_order,
+            location_name,
+            location_description,
+            location_slug,
+            location_active,
+            location_order,
+            type_name,
+            type_slug,
+            type_description,
+            type_active,
+            type_order,
+            location_seo_title,
+            location_seo_description,
+            category_seo_title,
+            category_seo_description,
+            type_seo_title,
+            type_seo_description,
+            town_name,
+            town_slug,
+            town_description,
+            town_seo_title,
+            town_seo_description,
+            property_socan,
+            property_solo,
+            property_quyhoach,
+            vitri_google,
+            property_matbang,
+            property_canhonen,
+            property_tienich,
+            author
+        ');
+        $this->db->from('property');
+        $this->db->join('property_categories', 'property_categories.category_id = property.property_category_id', 'left');
+        $this->db->join('property_locations', 'property_locations.location_id = property.property_location_id', 'left');
+        $this->db->join('property_types', 'property_types.type_id = property.property_type_id', 'left');
+        $this->db->join('property_towns', 'property_towns.town_id = property.property_town_id', 'left');
+        if ($this->router->directory  != 'admin/') {
+            $this->db->where('property_active', 1);
+            $this->db->where('property_categories.category_active', 1);
+            $this->db->where('property_locations.location_active', 1);
+            $this->db->where('property_types.type_active', 1);
+            $this->db->where('property_towns.town_active', 1);
+        }
+        if ($theloai != '') {
+            $this->db->where('property_theloai', $theloai);
+        }
+        if ($location != '') {
+            if (is_numeric($location)) {
+                $this->db->where('property_location_id', $location);
+            } else {
+                $this->db->where('location_slug', $location);
+            }
+        }
+        if ($category != '') {
+            if (is_numeric($category)) {
+                $this->db->where('property_category_id', $category);
+            } else {
+                $this->db->where('category_slug', $category);
+            }
+        }
+        if ($type != '') {
+            if (is_numeric($type)) {
+                $this->db->where('property_type_id', $type);
+            } else {
+                $this->db->where('type_slug', $type);
+            }
+        }
+        if ($town != '') {
+            if (is_numeric($town)) {
+                $this->db->where('property_town_id', $town);
+            } else {
+                $this->db->where('town_slug', $town);
+            }
+        }
+        if (is_array($acreage)) {
+            $acreage_from = $acreage['acreage_from'];
+            $acreage_to = $acreage['acreage_to'];
+            if ($acreage_from && $acreage_to) {
+                $this->db->where('property_acreage >=', $acreage_from);
+                $this->db->where('property_acreage <=', $acreage_to);
+            } elseif ($acreage_from && $acreage_to == '') {
+                $this->db->where('property_acreage >=', $acreage_from);
+            } elseif ($acreage_from == '' && $acreage_to) {
+                $this->db->where('property_acreage <=', $acreage_to);
+            }
+        }
+        if (is_array($price)) {
+            $price_from = $price['price_from'];
+            $price_to = $price['price_to'];
+            if ($price_from && $price_to) {
+                $this->db->where('property_price >=', $price_from);
+                $this->db->where('property_price <=', $price_to);
+            } elseif ($price_from && $price_to == '') {
+                $this->db->where('property_price >=', $price_from);
+            } elseif ($price_from == '' && $price_to) {
+                $this->db->where('property_price <=', $price_to);
+            }
+        }
+        if ($q != '') {
+             $this->db->group_start();
+            $this->db->like('property_name', $q);
+            $this->db->or_like('property_content', $q);
+            $this->db->group_end();
+        }
+        if ($limit > 0 && $start >= 0) {
+            $this->db->limit($limit, $start);
+        }
+        $this->db->order_by('property_stick', 'desc');
+        $this->db->order_by('property_id', 'desc');
 
         return $this->db->get()->result_array();
     }

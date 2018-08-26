@@ -27,12 +27,23 @@
      <div class="panel-body">
       <h4 class="no-margin">
        <?php echo $title; ?>
-       <?php if(isset($article)){ ?>
-       <br />
-       <small>
-        <a href="<?php echo site_url(PROPERTY_SLUG.$article->property_slug); ?>" target="_blank"><?php echo site_url(PROPERTY_SLUG.$article->property_slug); ?></a>
-      </small>
-      <?php } ?>
+       <?php if(isset($article)){ 
+        if ($article->property_theloai == PRODUCT):
+        ?>
+          <br />
+          <small>
+            <a href="<?php echo site_url(PRODUCT_SLUG.$article->property_slug); ?>" target="_blank"><?php echo site_url(PRODUCT_SLUG.$article->property_slug); ?></a>
+          </small>
+          <?php 
+        else:
+          ?>
+          <br />
+          <small>
+            <a href="<?php echo site_url(PROJECT_SLUG.$article->property_slug); ?>" target="_blank"><?php echo site_url(PROJECT_SLUG.$article->property_slug); ?></a>
+          </small>
+          <?php
+        endif;
+      } ?>
     </h4>
     <?php if(isset($article)){ ?>
     <p>
@@ -53,6 +64,12 @@
   <div class="clearfix"></div>
   <div class="row">
     <div class="col-md-8">
+      <?php $value = (isset($article) ? $article->property_theloai : ''); ?>
+      <?php
+        echo render_select('property_theloai', [['name' => 1, 'value' => 'Sản phẩm'], ['name' => 2, 'value' => 'Dự án']],array('name','value'),'Loại bài viết',$value);
+      ?>
+
+
    <?php $value = (isset($article) ? $article->property_name : ''); ?>
    <?php $attrs = (isset($article) ? array() : array('autofocus'=>true)); ?>
    <?php echo render_input('property_name','property_article_add_edit_name',$value,'text',$attrs); ?>
@@ -127,7 +144,22 @@
      <label for="disabled"><?php echo _l('property_article_disabled'); ?></label>
    </div>
    <?php $contents = ''; if(isset($article)){$contents = $article->property_content;} ?>
-   <?php echo render_textarea('property_content','',$contents,array(),array(),'','tinymce'); ?>
+   <?php echo render_textarea('property_content','Thông tin tổng quan',$contents,array(),array(),'','tinymce'); ?>
+
+   <?php $contents = ''; if(isset($article)){$contents = $article->vitri_google;} ?>
+   <?php echo render_textarea('vitri_google','vitri_google',$contents,array(),array(),'',''); ?>
+
+
+   <?php $contents = ''; if(isset($article)){$contents = $article->property_matbang;} ?>
+   <?php echo render_textarea('property_matbang','Mặt bằng',$contents,array(),array(),'','tinymce'); ?>
+
+   <?php $contents = ''; if(isset($article)){$contents = $article->property_canhonen;} ?>
+   <?php echo render_textarea('property_canhonen','Căn hộ, nền',$contents,array(),array(),'','tinymce'); ?>
+
+   <?php $contents = ''; if(isset($article)){$contents = $article->property_tienich;} ?>
+   <?php echo render_textarea('property_tienich','Tiện ích',$contents,array(),array(),'','tinymce'); ?>
+
+
     </div>
     <div class="col-md-4">
       <?php $value = (isset($article) ? $article->property_location_id : ''); ?>
@@ -137,6 +169,22 @@
         echo render_select('property_location_id',get_property_location(),array('location_id','location_name'),'property_article_add_edit_location',$value);
       }
       ?>
+
+      <?php 
+          $get_property_town = get_property_town();
+          foreach ($get_property_town as $key => $value) {
+            $get_property_town[$key]['option_attributes']['location'] = $value['town_location_id'];
+          }
+        ?>
+        <?php $value = (isset($article) ? $article->property_town_id : ''); ?>
+        <?php 
+          if(has_permission('property','','create')){
+            echo render_select_with_input_group('property_town_id',$get_property_town,array('town_id','town_name'),'property_article_add_edit_town',$value,'<a target="blank" href="' . admin_url('property/manage_towns') .'"><i class="fa fa-plus"></i></a>');
+          } else {
+            echo render_select('property_town_id',$get_property_town,array('town_id','town_name'),'property_article_add_edit_town',$value);
+        }
+        ?>
+
 
       <?php $value = (isset($article) ? $article->property_avatar : ''); ?>
       <div class="form-group">
@@ -214,18 +262,26 @@
       <?php $value = (isset($article) ? $article->property_price : ''); ?>
       <?php echo render_input('property_price','property_article_add_edit_price',$value,'number'); ?>
 
+      <?php $value = (isset($article) ? $article->property_acreage : ''); ?>
+      <?php echo render_input('property_acreage','property_acreage',$value,'text'); ?>
+
+      <?php $value = (isset($article) ? $article->property_quyhoach : ''); ?>
+      <?php echo render_input('property_quyhoach','property_quyhoach',$value,'text'); ?>
+
+      <?php $value = (isset($article) ? $article->property_socan : ''); ?>
+      <?php echo render_input('property_socan','property_socan',$value,'text'); ?>
+
+      <?php $value = (isset($article) ? $article->property_solo : ''); ?>
+      <?php echo render_input('property_solo','property_solo',$value,'text'); ?>
+
+      <?php $value = (isset($article) ? $article->property_facade : ''); ?>
+      <?php echo render_input('property_facade','property_facade',$value,'text'); ?>
+
       <?php $value = (isset($article) ? $article->property_bedroom : ''); ?>
       <?php echo render_input('property_bedroom','property_bedroom',$value,'text'); ?>
 
       <?php $value = (isset($article) ? $article->property_bathroom : ''); ?>
       <?php echo render_input('property_bathroom','property_bathroom',$value,'text'); ?>
-
-      <?php $value = (isset($article) ? $article->property_acreage : ''); ?>
-      <?php echo render_input('property_acreage','property_acreage',$value,'text'); ?>
-
-      <?php $value = (isset($article) ? $article->property_facade : ''); ?>
-      <?php echo render_input('property_facade','property_facade',$value,'text'); ?>
-
 
       <?php $value = (isset($article) ? $article->property_status : 1);?>
       <?php echo render_status_option($value, _l('property_article_add_edit_status'), null, _l('property_article_add_edit_status_working'), _l('property_article_add_edit_status_completed')); ?>
@@ -285,11 +341,14 @@
       property_category_id:'required',
       property_type_id:'required',
       property_location_id:'required',
+      property_town_id:'required',
       property_avatar:'required',
       property_price:'required',
       property_status:'required',
       property_seo_title:'required',
+      property_theloai:'required',
       property_seo_description:'required',
+      property_acreage:'required',
     });
 
     $(document).on('click', '.btn-add', function(e)
@@ -331,6 +390,29 @@
       }
       $('#property_type_id').find('option[value=""]').show();
       $('#property_type_id').selectpicker('refresh');
+    <?php } ?>
+
+
+    $('#property_location_id').on('change', function() {
+      var location = $(this).val();
+      $('#property_town_id').find('option').hide();
+      $('#property_town_id').selectpicker('val', '');
+      if (location) {
+        $('#property_town_id').find('option[location='+ location +']').show();
+      }
+      $('#property_town_id').find('option[value=""]').show();
+      $('#property_town_id').selectpicker('refresh');
+    });
+    <?php 
+    if(isset($article)){ 
+    ?>
+      var location = $('#property_location_id').val();
+      $('#property_town_id').find('option').hide();
+      if (location) {
+        $('#property_town_id').find('option[location='+ location +']').show();
+      }
+      $('#property_town_id').find('option[value=""]').show();
+      $('#property_town_id').selectpicker('refresh');
     <?php } ?>
 
   });

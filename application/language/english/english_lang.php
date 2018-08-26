@@ -3693,16 +3693,16 @@ $lang['content'] = 'Content';
 $lang['active'] = 'Active';
 
 $lang['als_kb_types'] = 'Types';
-$lang['als_kb_locations'] = 'Locations';
+$lang['als_kb_locations'] = 'Zones';
 $lang['als_kb_characteristics'] = 'Characteristics';
 $lang['new_type'] = 'New Type';
 $lang['property_no_types_found'] = 'No types found';
 $lang['category'] = 'Category';
 
 
-$lang['als_kb_locations'] = 'Locations';
-$lang['new_location'] = 'New location';
-$lang['property_no_locations_found'] = 'No locations found';
+$lang['als_kb_locations'] = 'Zones';
+$lang['new_location'] = 'New zone';
+$lang['property_no_locations_found'] = 'No zones found';
 
 
 $lang['als_kb_characteristics'] = 'Characteristics';
@@ -3710,7 +3710,7 @@ $lang['new_characteristic'] = 'New characteristic';
 $lang['property_no_characteristics_found'] = 'No characteristics found';
 
 $lang['property_article_add_edit_type']     = 'Type';
-$lang['property_article_add_edit_location']     = 'Location';
+$lang['property_article_add_edit_location']     = 'Zone';
 $lang['property_article_add_edit_avatar']     = 'Avatar';
 $lang['property_image']     = 'Image gallery';
 $lang['property_article_add_edit_price']     = 'Price';
@@ -3741,12 +3741,68 @@ $lang['contact_status'] = 'Status';
 $lang['contact_address'] = 'Address';
 $lang['contact_message'] = 'Message';
 $lang['edit_property_type'] = 'Edit type';
-$lang['edit_property_location'] = 'Edit location';
+$lang['edit_property_location'] = 'Edit zone';
 $lang['edit_property_characteristic'] = 'Edit characteristic';
 $lang['edit_property_contact'] = 'Edit contact';
 
 $lang['laws_string'] = 'Laws';
 $lang['title_home'] = 'Home';
 $lang['title_about'] = 'About';
-$lang['title_laws'] = 'Laws';
+$lang['title_contact'] = 'Contact';
 $lang['title_property'] = 'Property list';
+$lang['title_news'] = 'News';
+
+
+$lang['als_kb_towns'] = 'Town';
+$lang['new_town'] = 'Add Town';
+$lang['property_no_towns_found'] = 'No town found';
+$lang['property_article_add_edit_town']  = 'Town';
+$lang['edit_property_town'] = 'Edit Town';
+$lang['location'] = 'Zone';
+
+
+$lang['property_socan'] = 'Số căn';
+$lang['property_solo'] = 'Số lô';
+$lang['property_quyhoach'] = 'Quy hoạch';
+$lang['vitri_google'] = 'Google map';
+
+$lang['advices_string'] = 'Tin tư vấn';
+$lang['title_advices'] = 'Tin tư vấn';
+
+$lang['mreports_string'] = 'B.cáo thị trường';
+$lang['title_mreports'] = 'Báo cáo thị trường';
+
+$lang['list_product'] = 'Product';
+$lang['list_project'] = 'Project';
+$lang['title_project'] = 'Product';
+$lang['title_product'] = 'Project';
+
+$lang['title_phuquoc'] = 'Phú Quốc';
+$lang['title_vandon'] = 'Vân Đồn';
+$lang['title_bacvanphong'] = 'Bắc Vân Phong';
+
+$lang['contacts'] = 'Contacts';
+$lang['no_contacts_found'] = 'No contacts found';
+$lang['edit_contact'] = 'Edit Contacts';
+$lang['contact_property'] = 'Type property';
+
+
+$lang['menu_contact_email'] = 'Nhận bản tin';
+$lang['menu_contact_info'] = 'Nhận tư vấn';
+$lang['menu_contact_property'] = 'Nhận tin BDS';
+
+$lang['pages_string'] = 'Pages';
+$lang['pages'] = 'Pages';
+$lang['page_contacts'] = 'Page contact';
+$lang['contact_content'] = 'Nội dung';
+$lang['pages'] = 'Trang';
+$lang['page_contacts'] = 'Trang liên hệ';
+$lang['contact_content'] = 'Content';
+$lang['banners'] = 'Banners';
+$lang['options_other'] = 'Options other';
+$lang['web_menu'] = 'Web Menu';
+
+$lang['advices'] = 'Ddvices';
+$lang['mreports'] = 'Market report';
+$lang['news'] = 'news';
+$lang['supports'] = 'Supports';
