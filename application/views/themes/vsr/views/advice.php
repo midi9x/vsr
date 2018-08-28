@@ -7,10 +7,7 @@
 			<div class="col-md-9" id="primary">
 				<div class="section-content">
 					<div class="section">
-						<div class="thumb">
-							<img src="<?php echo $advice->avatar ?>" class="w-100" alt="<?php echo $advice->subject ?>">
-						</div>
-						<div class="post-info mt-3 mb-2">
+						<div class="post-info mt-0 mb-2">
 							<small class="text-muted">
 								<span class="date">
 									Đăng bởi: <?=$advice->author?> |

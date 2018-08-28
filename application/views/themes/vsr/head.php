@@ -74,13 +74,20 @@
                 </div>
               </div>
               <div class="col-md-4 vcenter">
+                <div class="left-icon"><i class="fa fa-envelope"></i></div>
+                <div class="right-text">
+                  Email hỗ trợ<br>
+                  <?=get_option('header_email')?>
+                </div>
+              </div>
+              <div class="col-md-4 vcenter">
                 <div class="left-icon"><i class="fa fa-clock"></i></div>
                 <div class="right-text">
                   Thời gian làm việc<br>
                   <?=get_option('header_time')?>
                 </div>
               </div>
-              <div class="col-md-4 vcenter">
+              <div class="col-md-4 vcenter d-none">
                 <div class="left-icon"><i class="far fa-user"></i></div>
                 <?php if (!is_client_logged_in()):?>
                   <div class="right-text">
@@ -152,11 +159,12 @@
                 }
               ?>
               <?php endif; ?>
+
               <?php if (!is_client_logged_in()):?>
-                <li class="nav-item d-block d-md-none">
+                <li class="nav-item d-none d-md-none">
                   <a class="nav-link" href="<?=site_url()?>clients/login">Đăng nhập</a>
                 </li>
-                <li class="nav-item d-block d-md-none">
+                <li class="nav-item d-none d-md-none">
                   <a class="nav-link" href="<?=site_url()?>clients/register">Đăng ký</a>
                 </li>
               <?php else: ?>
@@ -171,6 +179,7 @@
                   </div>
                 </li>
               <?php endif;?>
+
             </ul>
           </div>
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#search" aria-controls="search" aria-expanded="false" aria-label="Toggle navigation">

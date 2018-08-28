@@ -56,7 +56,7 @@ class Home extends Clients_controller
         $data["products"] = $this->property_model->get_list(1, false, false, 1, false, false, false, false, 3, 0);
         $data["projects"] = $this->property_model->get_list(2, false, false, 1, false, false, false, false, 3, 0);
         $data["active_menu"] = 'phu-quoc';
-        $this->view = 'home';
+        $this->view = 'home_phuquoc';
         $this->data = $data;
         $this->layout();
     }
@@ -70,7 +70,7 @@ class Home extends Clients_controller
         $data["products"] = $this->property_model->get_list(1, false, false, 2, false, false, false, false, 3, 0);
         $data["projects"] = $this->property_model->get_list(2, false, false, 2, false, false, false, false, 3, 0);
         $data["active_menu"] = 'van-don';
-        $this->view = 'home';
+        $this->view = 'home_vandon';
         $this->data = $data;
         $this->layout();
     }
@@ -84,7 +84,7 @@ class Home extends Clients_controller
         $data["products"] = $this->property_model->get_list(1, false, false, 3, false, false, false, false, 3, 0);
         $data["projects"] = $this->property_model->get_list(2, false, false, 3, false, false, false, false, 3, 0);
         $data["active_menu"] = 'bac-van-phong';
-        $this->view = 'home';
+        $this->view = 'home_bacvanphong';
         $this->data = $data;
         $this->layout();
     }

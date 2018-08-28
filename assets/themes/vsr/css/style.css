@@ -143,6 +143,7 @@ h3.title {
 .row.content {
     background: #fff;
     padding: 20px 0;
+    padding-bottom: 0;
     margin: 0;
 }
 .list-group.news h5 a {
@@ -717,4 +718,10 @@ button.navbar-toggler.navbar-toggler-left {
 #secondary .item .col-md-4 img.w-100 {
     min-height: 70px;
     object-fit: cover;
+}
+.footer-copyright {
+    color: #fff;
+    padding: 15px 0;
+    background-color: #3a4283;
+    margin-top: 15px;
 }

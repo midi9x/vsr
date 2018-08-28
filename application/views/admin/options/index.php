@@ -40,6 +40,10 @@
                                         <input type="text" class="form-control" required name="header_contact" value="<?=get_option('header_contact')?>">
                                     </div>
                                     <div class="form-group">
+                                        <label>Email hỗ trợ</label>
+                                        <input type="text" class="form-control" required name="header_email" value="<?=get_option('header_email')?>">
+                                    </div>
+                                    <div class="form-group">
                                         <label>Thời gian làm việc</label>
                                         <input type="text" class="form-control" required name="header_time" value="<?=get_option('header_time')?>">
                                     </div>

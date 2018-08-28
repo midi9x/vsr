@@ -186,7 +186,7 @@
                         <?php echo form_open(site_url('lien-he-bat-dong-san'),array('id'=>'addContact', 'class' => 'mb-3')); ?>
                             <input type="hidden" name="property_id" value="<?=$property->property_id?>">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Họ và tên" name="contact_phone" required>
+                                <input type="text" class="form-control" placeholder="Họ và tên" name="contact_name" required>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">

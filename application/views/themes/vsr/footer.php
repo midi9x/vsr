@@ -24,7 +24,7 @@
 	<div class="footer-widget">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3 widget">
+				<div class="col-md-4 widget">
 					<h3>Hỗ trợ khách hàng</h3>
 					<ul>
 						<li><a href="<?=site_url('/')?>clients/register">Đăng ký thành viên</a></li>
@@ -32,7 +32,7 @@
 						<li><a href="<?=site_url('/') . ADVICES_SLUG ?>">Thông tin tư vấn</a></li>
 					</ul>
 				</div>
-				<div class="col-md-3 widget">
+				<div class="col-md-4 widget">
 					<h3>Về VSR</h3>
 					<ul>
 						<li><a href="<?=site_url('/')?>gioi-thieu">Giới thiệu</a></li>
@@ -40,21 +40,7 @@
 						<li><a href="<?=site_url('/')?>chinh-sach-bao-mat">Chính sách bảo mật</a></li>
 					</ul>
 				</div>
-				<div class="col-md-3 widget">
-					<?php
-						$footer_doitac = get_option('footer_doitac');
-						$footer_doitac = json_decode($footer_doitac);
-					?>
-					<h3>Đối tác tin cậy</h3>
-					<div class="row doitac">
-						<?php foreach ($footer_doitac as $key => $doitac):?>
-							<div class="col-4 mb-3">
-								<img src="<?php echo $doitac;?>" class="w-100">
-							</div>
-						<?php endforeach;?>
-					</div>
-				</div>
-				<div class="col-md-3 widget">
+				<div class="col-md-4 widget">
 					<h3>Kết nối với chúng tôi</h3>
 					<ul>
 						<li><a href="<?=get_option('footer_facebook')?>" title="Facebook">Facebook</a></li>
@@ -65,13 +51,13 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="footer-copyright">
+	<div class="footer-copyright">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
-					Bản quyền thuộc về VSR. Cấm sao chép nội dung dưới mọi hình thức nếu không có sự chấp thuận bằng văn bản từ VSR.
+					Copyright 2018 © vsr.com.vn - Bản quyền thuộc về VSR. Cấm sao chép nội dung dưới mọi hình thức nếu không có sự chấp thuận bằng văn bản từ VSR.
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 </footer>
